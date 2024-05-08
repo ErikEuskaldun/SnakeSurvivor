@@ -8,13 +8,29 @@ public class SnakeController : MonoBehaviour
     public EDirection inputB = EDirection.Null;
     public EDirection direction = EDirection.Null;
     public Transform nextPosition;
-    public float speed = 2f; 
+    public float speed = 2f;
+    public bool testClasicMovement = false;
+    public SnakePart snakeHead;
+    private SnakeVariables snakeVariables;
 
+    private void Start()
+    {
+        snakeVariables = GetComponent<SnakeVariables>();
+    }
     // Update is called once per frame
     void Update()
     {
         GetInput();
         Movement();
+        TEST_IncreaseDecreaseSnakeLenght();
+    }
+
+    public void TEST_IncreaseDecreaseSnakeLenght()
+    {
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+            snakeVariables.IncreaseLenght();
+        else if (Input.GetKeyDown(KeyCode.KeypadMinus))
+            snakeVariables.DecreaseLenght();
     }
 
     void Movement()
@@ -27,14 +43,15 @@ public class SnakeController : MonoBehaviour
     {
         lockMovement = true;
 
-        Vector3 startingPosition = transform.position;
+        Vector3 startingPosition = snakeHead.transform.position;
         float count = 0f;
         do
         {
-            transform.position = Vector3.Lerp(startingPosition, targetPosition, count);
+            if(!testClasicMovement) snakeHead.transform.position = Vector3.Lerp(startingPosition, targetPosition, count);
             count += Time.deltaTime * speed;
             yield return new WaitForEndOfFrame();
         } while (count < 1f);
+        snakeHead.UpdatePosition(targetPosition);
 
         lockMovement = false;
     }
@@ -49,16 +66,16 @@ public class SnakeController : MonoBehaviour
         switch (direction)
         {
             case EDirection.Up:
-                targetPosition = transform.position + Vector3.up;
+                targetPosition = snakeHead.transform.position + Vector3.up;
                 break;
             case EDirection.Down:
-                targetPosition = transform.position + Vector3.down;
+                targetPosition = snakeHead.transform.position + Vector3.down;
                 break;
             case EDirection.Right:
-                targetPosition = transform.position + Vector3.right;
+                targetPosition = snakeHead.transform.position + Vector3.right;
                 break;
             case EDirection.Left:
-                targetPosition = transform.position + Vector3.left;
+                targetPosition = snakeHead.transform.position + Vector3.left;
                 break;
         }
         this.direction = direction;
