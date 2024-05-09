@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [RequireComponent(typeof(SnakeController))]
 public class SnakeVariables : MonoBehaviour
@@ -8,6 +9,8 @@ public class SnakeVariables : MonoBehaviour
     public int lenght = 1;
     public List<SnakePart> snakeParts = new List<SnakePart>();
     public GameObject snakePartPrefab;
+    public int points = 0;
+    public TMP_Text txtPoints;
     
     public void IncreaseLenght()
     {
@@ -32,5 +35,11 @@ public class SnakeVariables : MonoBehaviour
         newLastPart.nextPart = null;
 
         Destroy(lastPart.gameObject);
+    }
+
+    public void IncreasePoints(int value)
+    {
+        points += value;
+        txtPoints.text = "Points: " + points;
     }
 }

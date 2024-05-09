@@ -16,6 +16,11 @@ public class SnakeController : MonoBehaviour
     private void Start()
     {
         snakeVariables = GetComponent<SnakeVariables>();
+
+        for (int i = 0; i < 3; i++)
+        {
+            snakeVariables.IncreaseLenght();
+        }
     }
     // Update is called once per frame
     void Update()
@@ -45,13 +50,13 @@ public class SnakeController : MonoBehaviour
 
         Vector3 startingPosition = snakeHead.transform.position;
         float count = 0f;
+        snakeHead.UpdatePosition(targetPosition);
         do
         {
-            if(!testClasicMovement) snakeHead.transform.position = Vector3.Lerp(startingPosition, targetPosition, count);
+            //if(!testClasicMovement) snakeHead.transform.position = Vector3.Lerp(startingPosition, targetPosition, count);
             count += Time.deltaTime * speed;
             yield return new WaitForEndOfFrame();
         } while (count < 1f);
-        snakeHead.UpdatePosition(targetPosition);
 
         lockMovement = false;
     }
