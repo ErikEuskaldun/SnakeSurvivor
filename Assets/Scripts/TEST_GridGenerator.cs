@@ -5,7 +5,7 @@ using UnityEngine;
 public class TEST_GridGenerator : MonoBehaviour
 {
     public int startY, endY, startX, endX;
-    public GameObject prefab;
+    public GameObject floor, brick;
     public Color colorA, colorB;
     void Start()
     {
@@ -18,8 +18,13 @@ public class TEST_GridGenerator : MonoBehaviour
         {
             for (int x = startX; x < endX+1; x++)
             {
-                SpriteRenderer s = Instantiate(prefab, new Vector3(x,y),Quaternion.identity).GetComponent<SpriteRenderer>();
-                s.color = (x+y) % 2 == 0 ? colorA : colorB;
+                if(y == startY || y == endY || x == startX || x == endX)
+                    Instantiate(brick, new Vector3(x, y), Quaternion.identity, this.transform);
+                else
+                {
+                    SpriteRenderer s = Instantiate(floor, new Vector3(x, y), Quaternion.identity, this.transform).GetComponent<SpriteRenderer>();
+                    s.color = (x + y) % 2 == 0 ? colorA : colorB;
+                }
             }
         }
     }

@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SnakeVariables))]
 public class SnakeController : MonoBehaviour
 {
-    public EDirection inputA = EDirection.Null;
-    public EDirection inputB = EDirection.Null;
-    public EDirection direction = EDirection.Null;
-    public Transform nextPosition;
-    public float speed = 2f;
-    public bool testClasicMovement = false;
+    [SerializeField] private EDirection inputA = EDirection.Null;
+    [SerializeField] private EDirection inputB = EDirection.Null;
+    [SerializeField] private EDirection direction = EDirection.Null;
     public SnakePart snakeHead;
     private SnakeVariables snakeVariables;
 
@@ -17,16 +15,13 @@ public class SnakeController : MonoBehaviour
     {
         snakeVariables = GetComponent<SnakeVariables>();
 
-        for (int i = 0; i < 3; i++)
-        {
-            snakeVariables.IncreaseLenght();
-        }
+        snakeVariables.StartingLenght(3);
     }
-    // Update is called once per frame
+
     void Update()
     {
         GetInput();
-        Movement();
+        Move();
         TEST_IncreaseDecreaseSnakeLenght();
     }
 
@@ -38,11 +33,6 @@ public class SnakeController : MonoBehaviour
             snakeVariables.DecreaseLenght();
     }
 
-    void Movement()
-    {
-        Move(inputA);
-    }
-
     bool lockMovement = false;
     public IEnumerator TileMovement(Vector3 targetPosition)
     {
@@ -51,22 +41,24 @@ public class SnakeController : MonoBehaviour
         Vector3 startingPosition = snakeHead.transform.position;
         float count = 0f;
         snakeHead.UpdatePosition(targetPosition);
-        do
+        do //Timer for next action
         {
-            //if(!testClasicMovement) snakeHead.transform.position = Vector3.Lerp(startingPosition, targetPosition, count);
-            count += Time.deltaTime * speed;
+            count += Time.deltaTime * snakeVariables.speed;
             yield return new WaitForEndOfFrame();
         } while (count < 1f);
 
         lockMovement = false;
     }
 
-    private void Move(EDirection direction)
+    private void Move()
     {
         if (lockMovement)
             return;
-        if (inputA == EDirection.Null)
+
+        EDirection direction = inputA;
+        if (inputA == EDirection.Null) //keep direction if input no selected
             direction = this.direction;
+
         Vector3 targetPosition = default;
         switch (direction)
         {
@@ -84,9 +76,11 @@ public class SnakeController : MonoBehaviour
                 break;
         }
         this.direction = direction;
+
+        //Get the secoundary input (fast input)
         inputA = inputB;
         inputB = EDirection.Null;
-        StartCoroutine(TileMovement(Vector3Int.RoundToInt(targetPosition)));
+        if(direction!=EDirection.Null)StartCoroutine(TileMovement(Vector3Int.RoundToInt(targetPosition))); //Recall movement
     }
 
     void GetInput()
@@ -102,7 +96,7 @@ public class SnakeController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.A))
             input = EDirection.Left;
 
-        if(input!=EDirection.Null)
+        if(input!=EDirection.Null) //Double input save
         {
             if (inputA == EDirection.Null)
                 inputA = ValidateDirection(direction, input) ? input : EDirection.Null;
@@ -111,6 +105,7 @@ public class SnakeController : MonoBehaviour
         }
     }
 
+    //Check if posible the input direction
     bool ValidateDirection(EDirection direction, EDirection input)
     {
         EDirection d = direction;
