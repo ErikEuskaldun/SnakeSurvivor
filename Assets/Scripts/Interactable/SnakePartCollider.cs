@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeTail : MonoBehaviour, IInteractable
+public class SnakePartCollider : MonoBehaviour, IInteractable
 {
     public void OnInteract()
     {

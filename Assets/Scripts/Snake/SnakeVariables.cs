@@ -22,12 +22,15 @@ public class SnakeVariables : MonoBehaviour
         {
             this.length++;
             SnakePart lastPart = snakeParts[snakeParts.Count - 1];
-            SnakePart newPart = Instantiate(snakePartPrefab, lastPart.transform.position + Vector3.right, Quaternion.identity, this.transform).GetComponent<SnakePart>();
+            SnakePart newPart = Instantiate(snakePartPrefab, lastPart.transform.position + Vector3.right * SnakeUtils.TILE_SIZE, Quaternion.identity, this.transform).GetComponent<SnakePart>();
             lastPart.nextPart = newPart; //old last part is dad of new part
-            newPart.transform.position = lastPart.transform.position + Vector3.right; //new part position is last parts
+            newPart.prevPart = lastPart;
+            newPart.transform.position = lastPart.transform.position + Vector3.right * SnakeUtils.TILE_SIZE; //new part position is last parts
+            
             snakeParts.Add(newPart);
         }
-        
+        SnakePart tail = snakeParts[snakeParts.Count - 1];
+        tail.ChangeSprite(ESnakePart.Tail);
     }
 
     public void IncreaseLenght() //Increase snake lenght by 1
@@ -36,7 +39,9 @@ public class SnakeVariables : MonoBehaviour
         SnakePart lastPart = snakeParts[snakeParts.Count - 1];
         SnakePart newPart = Instantiate(snakePartPrefab, lastPart.transform.position, Quaternion.identity, this.transform).GetComponent<SnakePart>();
         lastPart.nextPart = newPart; //old last part is dad of new part
+        newPart.prevPart = lastPart;
         newPart.UpdatePosition(lastPart.transform.position); //new part position is last parts
+        newPart.transform.rotation = lastPart.transform.rotation;
         snakeParts.Add(newPart);
     }
 

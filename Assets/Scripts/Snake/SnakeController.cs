@@ -63,16 +63,16 @@ public class SnakeController : MonoBehaviour
         switch (direction)
         {
             case EDirection.Up:
-                targetPosition = snakeHead.transform.position + Vector3.up;
+                targetPosition = snakeHead.transform.position + Vector3.up * SnakeUtils.TILE_SIZE;
                 break;
             case EDirection.Down:
-                targetPosition = snakeHead.transform.position + Vector3.down;
+                targetPosition = snakeHead.transform.position + Vector3.down * SnakeUtils.TILE_SIZE;
                 break;
             case EDirection.Right:
-                targetPosition = snakeHead.transform.position + Vector3.right;
+                targetPosition = snakeHead.transform.position + Vector3.right * SnakeUtils.TILE_SIZE;
                 break;
             case EDirection.Left:
-                targetPosition = snakeHead.transform.position + Vector3.left;
+                targetPosition = snakeHead.transform.position + Vector3.left * SnakeUtils.TILE_SIZE;
                 break;
         }
         this.direction = direction;
@@ -80,7 +80,7 @@ public class SnakeController : MonoBehaviour
         //Get the secoundary input (fast input)
         inputA = inputB;
         inputB = EDirection.Null;
-        if(direction!=EDirection.Null)StartCoroutine(TileMovement(Vector3Int.RoundToInt(targetPosition))); //Recall movement
+        if(direction!=EDirection.Null)StartCoroutine(TileMovement(targetPosition)); //Recall movement
     }
 
     void GetInput()

@@ -9,6 +9,6 @@ public class Apple : MonoBehaviour, IInteractable
         GameObject snake = GameObject.FindGameObjectWithTag("SnakeController");
         snake.GetComponent<SnakeVariables>().IncreasePoints(10);
         snake.GetComponent<SnakeVariables>().IncreaseLenght();
-        this.transform.position = new Vector3(Random.Range(-9, 9), Random.Range(-9, 9));
+        this.transform.position = new Vector3(Random.Range(-9, 9), Random.Range(-9, 9)) * SnakeUtils.TILE_SIZE;
     }
 }

@@ -19,10 +19,10 @@ public class TEST_GridGenerator : MonoBehaviour
             for (int x = startX; x < endX+1; x++)
             {
                 if(y == startY || y == endY || x == startX || x == endX)
-                    Instantiate(brick, new Vector3(x, y), Quaternion.identity, this.transform);
+                    Instantiate(brick, new Vector3(x, y) * SnakeUtils.TILE_SIZE, Quaternion.identity, this.transform);
                 else
                 {
-                    SpriteRenderer s = Instantiate(floor, new Vector3(x, y), Quaternion.identity, this.transform).GetComponent<SpriteRenderer>();
+                    SpriteRenderer s = Instantiate(floor, new Vector3(x, y) * SnakeUtils.TILE_SIZE, Quaternion.identity, this.transform).GetComponent<SpriteRenderer>();
                     s.color = (x + y) % 2 == 0 ? colorA : colorB;
                 }
             }
