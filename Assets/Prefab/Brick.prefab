@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4708266435214645307}
   - component: {fileID: 5127691859313887088}
   - component: {fileID: 7621416636832704462}
+  - component: {fileID: -2292225957023989086}
   - component: {fileID: 1533776628155137769}
   m_Layer: 0
   m_Name: Brick
@@ -98,6 +99,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32d5da536d001047957ae6d3f2ab5a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-2292225957023989086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3350232744250413145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd3c27ec3c53204895e90e6322cf406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  position: {x: 0, y: 0}
+  type: 3
 --- !u!61 &1533776628155137769
 BoxCollider2D:
   m_ObjectHideFlags: 0

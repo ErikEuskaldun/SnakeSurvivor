@@ -72,4 +72,34 @@ public class SnakeVariables : MonoBehaviour
         Debug.Log("== GAME OVER ==");
         speed = 0;
     }
+
+    public Vector3 GetRandomEmptySpace()
+    {
+        Grid grid = GameObject.FindGameObjectWithTag("Grid").GetComponent<Grid>();
+
+        Vector3 randomSpace = Vector3.one * 999;
+        float x, y;
+        bool tileTaken = false;
+        do
+        {
+            x = Random.Range(grid.startX + 1, grid.endX - 1) * SnakeUtils.TILE_SIZE;
+            y = Random.Range(grid.startY + 1, grid.endY - 1) * SnakeUtils.TILE_SIZE;
+
+            tileTaken = false;
+            foreach (SnakePart p in snakeParts)
+            {
+                if (SnakeUtils.RoundFloat(p.transform.position.x) == x && SnakeUtils.RoundFloat(p.transform.position.y) == y)
+                    tileTaken = true;
+            }
+            if (!tileTaken) randomSpace = new Vector3(x, y);
+        } while (tileTaken == true);
+
+        string appleLocation = "";
+        appleLocation += "(" + x + "/" + y + ") -> ";
+        foreach (SnakePart p in snakeParts)
+            appleLocation += "[" + p.transform.position.x + "/" + p.transform.position.y + "] ";
+        Debug.Log(appleLocation);
+
+        return randomSpace;
+    }
 }

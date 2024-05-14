@@ -1,0 +1,62 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Grid : MonoBehaviour
+{
+    public List<GridElement> gridElements = new List<GridElement>();
+    public int startY, endY, startX, endX;
+    public GameObject floor, brick;
+    public Color colorA, colorB;
+    void Start()
+    {
+        GenerateGrid(startY, endY, startX, endX);
+    }
+
+    public void GenerateGrid(int startY, int endY, int startX, int endX)
+    {
+        for (int y = startY; y < endY + 1; y++)
+        {
+            for (int x = startX; x < endX + 1; x++)
+            {
+                if (y == startY || y == endY || x == startX || x == endX)
+                {
+                    GridElement instance = Instantiate(brick, new Vector3(x, y) * SnakeUtils.TILE_SIZE, Quaternion.identity, this.transform).GetComponent<GridElement>();
+                    instance.position = new Vector2Int(x, y);
+                }
+                else
+                {
+                    SpriteRenderer s = Instantiate(floor, new Vector3(x, y) * SnakeUtils.TILE_SIZE, Quaternion.identity, this.transform).GetComponent<SpriteRenderer>();
+                    s.color = (x + y) % 2 == 0 ? colorA : colorB;
+                }
+            }
+        }
+    }
+
+    public Vector2Int GetRandomEmptySpace()
+    {
+        bool validPosition = true;
+        Vector2Int newPosition = default;
+        int x, y;
+        do
+        {
+            x = Random.Range(startX, endX);
+            y = Random.Range(startY, endY);
+            validPosition = true;
+            foreach (GridElement element in gridElements)
+            {
+                if (element.position.x == x && element.position.y == y)
+                    validPosition = false;
+            }
+        } while (validPosition==false);
+
+        newPosition = new Vector2Int(x, y);
+
+        return newPosition;
+    }
+}
+
+public enum EElementType
+{
+    Null, Snake, Apple, Brick
+}

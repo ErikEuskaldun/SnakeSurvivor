@@ -22,7 +22,8 @@ public class SnakePart : MonoBehaviour
 
         if(isHead) ChangeRotation(oldPosition, position);
 
-        transform.position = position;
+        transform.position = SnakeUtils.RoundFloat(position);
+        GetComponent<GridElement>().position = new Vector2Int(Mathf.RoundToInt(transform.position.x * SnakeUtils.TILE_MULTIPLIER), Mathf.RoundToInt(transform.position.y * SnakeUtils.TILE_MULTIPLIER));
         if (nextPart != null)
         {
             nextPart.UpdatePosition(oldPosition);

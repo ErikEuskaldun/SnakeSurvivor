@@ -132,34 +132,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 114104119}
-  - component: {fileID: 114104118}
+  - component: {fileID: 114104120}
   m_Layer: 0
-  m_Name: TestMap
+  m_Name: Grid
   m_TagString: Grid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114104118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114104117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40d3e9bc44bdf4847b11811672020b51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startY: -10
-  endY: 10
-  startX: -10
-  endX: 10
-  floor: {fileID: 7839497630658632422, guid: 05a06eea3777ce346836f92769146565, type: 3}
-  brick: {fileID: 3350232744250413145, guid: 049934de72e7a6444bb7215133a9ac4c, type: 3}
-  colorA: {r: 0, g: 0, b: 0, a: 1}
-  colorB: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 1}
 --- !u!4 &114104119
 Transform:
   m_ObjectHideFlags: 0
@@ -175,6 +155,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114104120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114104117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed59e0be10982e498546698d77cf83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridElements: []
+  startY: -10
+  endY: 10
+  startX: -10
+  endX: 10
+  floor: {fileID: 7839497630658632422, guid: 05a06eea3777ce346836f92769146565, type: 3}
+  brick: {fileID: 3350232744250413145, guid: 049934de72e7a6444bb7215133a9ac4c, type: 3}
+  colorA: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 1}
+  colorB: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,11 +464,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2211276587878225565, guid: 642efbabdc0ac9b4bbf99b21c932bdb8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2211276587878225565, guid: 642efbabdc0ac9b4bbf99b21c932bdb8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2211276587878225565, guid: 642efbabdc0ac9b4bbf99b21c932bdb8, type: 3}
       propertyPath: m_LocalScale.z
@@ -524,7 +525,7 @@ PrefabInstance:
     - target: {fileID: 8579001069161755561, guid: 642efbabdc0ac9b4bbf99b21c932bdb8, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1538743647, guid: 2df8bbac1512929439b8a3014c143f9f, type: 3}
+      objectReference: {fileID: 21300000, guid: 028974b5d6f0957418df793000098476, type: 3}
     - target: {fileID: 8579001069161755561, guid: 642efbabdc0ac9b4bbf99b21c932bdb8, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -548,6 +549,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7839497630658632422, guid: 642efbabdc0ac9b4bbf99b21c932bdb8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1290194153}
+    - targetCorrespondingSourceObject: {fileID: 7839497630658632422, guid: 642efbabdc0ac9b4bbf99b21c932bdb8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1290194157}
     - targetCorrespondingSourceObject: {fileID: 7839497630658632422, guid: 642efbabdc0ac9b4bbf99b21c932bdb8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1290194154}
@@ -614,6 +618,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.1}
   m_EdgeRadius: 0
+--- !u!114 &1290194157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290194149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd3c27ec3c53204895e90e6322cf406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 0}
+  type: 2
 --- !u!1 &1375142232
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,7 +694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d9317a4e26f24459f88f02e6062ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 5
   length: 1
   snakeParts:
   - {fileID: 42990064705866467}
@@ -810,8 +828,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Points: 0'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 368a41b60ed7e5440a14b99f77cea1a4, type: 2}
+  m_sharedMaterial: {fileID: -5882360907965972241, guid: 368a41b60ed7e5440a14b99f77cea1a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -835,7 +853,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.15
+  m_fontSize: 24.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -980,6 +998,7 @@ GameObject:
   - component: {fileID: 943190003}
   - component: {fileID: 42990064705866467}
   - component: {fileID: 8015013620790499812}
+  - component: {fileID: 8015013620790499813}
   - component: {fileID: 943190000}
   - component: {fileID: 943190001}
   m_Layer: 0
@@ -1006,6 +1025,20 @@ MonoBehaviour:
   - {fileID: 718543336, guid: 656ac9efcb47c204ebf61dd96220e14e, type: 3}
   - {fileID: 413518995, guid: 656ac9efcb47c204ebf61dd96220e14e, type: 3}
   - {fileID: -849371748, guid: 656ac9efcb47c204ebf61dd96220e14e, type: 3}
+--- !u!114 &8015013620790499813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8015013620790499811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd3c27ec3c53204895e90e6322cf406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 0}
+  type: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
