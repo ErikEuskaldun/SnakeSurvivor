@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 413518995, guid: 656ac9efcb47c204ebf61dd96220e14e, type: 3}
+  m_Sprite: {fileID: -1444133389, guid: de38cc924a8189940a526f594a56833e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -129,10 +129,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snakeSprites:
-  - {fileID: 1139911553, guid: 656ac9efcb47c204ebf61dd96220e14e, type: 3}
-  - {fileID: 718543336, guid: 656ac9efcb47c204ebf61dd96220e14e, type: 3}
-  - {fileID: 413518995, guid: 656ac9efcb47c204ebf61dd96220e14e, type: 3}
-  - {fileID: -849371748, guid: 656ac9efcb47c204ebf61dd96220e14e, type: 3}
+  - {fileID: 788909681, guid: de38cc924a8189940a526f594a56833e, type: 3}
+  - {fileID: 1216311670, guid: de38cc924a8189940a526f594a56833e, type: 3}
+  - {fileID: -1444133389, guid: de38cc924a8189940a526f594a56833e, type: 3}
+  - {fileID: 1039981107, guid: de38cc924a8189940a526f594a56833e, type: 3}
 --- !u!114 &-8530565738663491494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd3c27ec3c53204895e90e6322cf406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grid: {fileID: 0}
   position: {x: 0, y: 0}
   type: 1
 --- !u!61 &2487184894017242366

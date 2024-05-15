@@ -13,6 +13,8 @@ public class SnakeVariables : MonoBehaviour
     [SerializeField] private int points = 0;
     [SerializeField] private TMP_Text txtPoints;
 
+    public TMP_Text testTxtSpeed;
+
     public void StartingLenght(int length)
     {
         if (length < 3)
@@ -69,8 +71,14 @@ public class SnakeVariables : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("== GAME OVER ==");
-        speed = 0;
+        GameObject gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        gameManager.GetComponent<GameManager>().GameOver();
+    }
+
+    public void TEST_ChangeSpeed(float value)
+    {
+        speed = value*19+1;
+        testTxtSpeed.text = "Speed: " + SnakeUtils.RoundFloat(speed);
     }
 
     public Vector3 GetRandomEmptySpace()

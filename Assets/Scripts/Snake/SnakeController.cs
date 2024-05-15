@@ -22,15 +22,6 @@ public class SnakeController : MonoBehaviour
     {
         GetInput();
         Move();
-        TEST_IncreaseDecreaseSnakeLenght();
-    }
-
-    public void TEST_IncreaseDecreaseSnakeLenght()
-    {
-        if (Input.GetKeyDown(KeyCode.KeypadPlus))
-            snakeVariables.IncreaseLenght();
-        else if (Input.GetKeyDown(KeyCode.KeypadMinus))
-            snakeVariables.DecreaseLenght();
     }
 
     bool lockMovement = false;
