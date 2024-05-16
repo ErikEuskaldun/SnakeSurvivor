@@ -11,9 +11,17 @@ public class SnakeVariables : MonoBehaviour
     public List<SnakePart> snakeParts = new List<SnakePart>();
     [SerializeField] private GameObject snakePartPrefab;
     [SerializeField] private int points = 0;
-    [SerializeField] private TMP_Text txtPoints;
+    StatsMenu statsUI;
 
-    public TMP_Text testTxtSpeed;
+    public int Points { get => points; }
+
+    private void Awake()
+    {
+        statsUI = FindObjectOfType<StatsMenu>();
+        if (!PlayerPrefs.HasKey("HighScore"))
+            PlayerPrefs.SetInt("HighScore", 0);
+        UpdateUIAll();
+    }
 
     public void StartingLenght(int length)
     {
@@ -33,6 +41,8 @@ public class SnakeVariables : MonoBehaviour
         }
         SnakePart tail = snakeParts[snakeParts.Count - 1];
         tail.ChangeSprite(ESnakePart.Tail);
+
+        statsUI.UpdateLenght(length);
     }
 
     public void IncreaseLenght() //Increase snake lenght by 1
@@ -45,6 +55,8 @@ public class SnakeVariables : MonoBehaviour
         newPart.UpdatePosition(lastPart.transform.position); //new part position is last parts
         newPart.transform.rotation = lastPart.transform.rotation;
         snakeParts.Add(newPart);
+
+        statsUI.UpdateLenght(length);
     }
 
     public void DecreaseLenght() //Decrease snake lenght by 1
@@ -61,12 +73,22 @@ public class SnakeVariables : MonoBehaviour
         newLastPart.nextPart = null; //set to null new last parts child (is last so dont have child)
 
         Destroy(lastPart.gameObject); //destroy go
+
+        statsUI.UpdateLenght(length);
     }
 
     public void IncreasePoints(int value) //points variable controller
     {
         points += value;
-        txtPoints.text = "Points: " + points;
+
+        statsUI.UpdatePoints(points);
+    }
+
+    public void IncreaseSpeed(float value)
+    {
+        speed += value;
+
+        statsUI.UpdateSpeed(speed);
     }
 
     public void GameOver()
@@ -75,39 +97,11 @@ public class SnakeVariables : MonoBehaviour
         gameManager.GetComponent<GameManager>().GameOver();
     }
 
-    public void TEST_ChangeSpeed(float value)
+    public void UpdateUIAll()
     {
-        speed = value*19+1;
-        testTxtSpeed.text = "Speed: " + SnakeUtils.RoundFloat(speed);
-    }
-
-    public Vector3 GetRandomEmptySpace()
-    {
-        Grid grid = GameObject.FindGameObjectWithTag("Grid").GetComponent<Grid>();
-
-        Vector3 randomSpace = Vector3.one * 999;
-        float x, y;
-        bool tileTaken = false;
-        do
-        {
-            x = Random.Range(grid.startX + 1, grid.endX - 1) * SnakeUtils.TILE_SIZE;
-            y = Random.Range(grid.startY + 1, grid.endY - 1) * SnakeUtils.TILE_SIZE;
-
-            tileTaken = false;
-            foreach (SnakePart p in snakeParts)
-            {
-                if (SnakeUtils.RoundFloat(p.transform.position.x) == x && SnakeUtils.RoundFloat(p.transform.position.y) == y)
-                    tileTaken = true;
-            }
-            if (!tileTaken) randomSpace = new Vector3(x, y);
-        } while (tileTaken == true);
-
-        string appleLocation = "";
-        appleLocation += "(" + x + "/" + y + ") -> ";
-        foreach (SnakePart p in snakeParts)
-            appleLocation += "[" + p.transform.position.x + "/" + p.transform.position.y + "] ";
-        Debug.Log(appleLocation);
-
-        return randomSpace;
+        statsUI.UpdatePoints(points);
+        statsUI.UpdateSpeed(speed);
+        statsUI.UpdateLenght(length);
+        statsUI.UpdateHighScore(PlayerPrefs.GetInt("HighScore"));
     }
 }

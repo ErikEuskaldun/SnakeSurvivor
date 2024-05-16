@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,9 +47,17 @@ public class SnakeController : MonoBehaviour
         if (lockMovement)
             return;
 
+        if (this.direction == EDirection.Null)
+        {
+            GameStart();
+            return;
+        }
+            
         EDirection direction = inputA;
         if (inputA == EDirection.Null) //keep direction if input no selected
             direction = this.direction;
+
+        
 
         Vector3 targetPosition = default;
         switch (direction)
@@ -72,6 +81,17 @@ public class SnakeController : MonoBehaviour
         inputA = inputB;
         inputB = EDirection.Null;
         if(direction!=EDirection.Null)StartCoroutine(TileMovement(targetPosition)); //Recall movement
+    }
+
+    private void GameStart()
+    {
+        if (inputA != EDirection.Null && inputA != EDirection.Right)
+        {
+            this.direction = inputA;
+            FindObjectOfType<GameManager>().GameStart();
+        }
+        inputA = EDirection.Null;
+        inputB = EDirection.Null;
     }
 
     void GetInput()
