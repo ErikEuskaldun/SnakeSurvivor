@@ -15,6 +15,7 @@ public class SnakeController : MonoBehaviour
     private void Start()
     {
         snakeVariables = GetComponent<SnakeVariables>();
+        Time.timeScale = 0;
 
         snakeVariables.StartingLenght(3);
     }
@@ -57,8 +58,6 @@ public class SnakeController : MonoBehaviour
         if (inputA == EDirection.Null) //keep direction if input no selected
             direction = this.direction;
 
-        
-
         Vector3 targetPosition = default;
         switch (direction)
         {
@@ -87,9 +86,15 @@ public class SnakeController : MonoBehaviour
     {
         if (inputA != EDirection.Null && inputA != EDirection.Right)
         {
+            Time.timeScale = 1;
             this.direction = inputA;
-            FindObjectOfType<GameManager>().GameStart();
         }
+        inputA = EDirection.Null;
+        inputB = EDirection.Null;
+    }
+
+    public void ResetDirection()
+    {
         inputA = EDirection.Null;
         inputB = EDirection.Null;
     }
@@ -124,8 +129,7 @@ public class SnakeController : MonoBehaviour
         if (d == EDirection.Right && i == EDirection.Left || d == EDirection.Left && i == EDirection.Right ||
             d == EDirection.Up && i == EDirection.Down || d == EDirection.Down && i == EDirection.Up)
             return false;
-        else
-            return true;
+        return true;
     }
 }
 

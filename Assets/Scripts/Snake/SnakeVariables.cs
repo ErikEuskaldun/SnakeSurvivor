@@ -59,6 +59,12 @@ public class SnakeVariables : MonoBehaviour
         statsUI.UpdateLenght(length);
     }
 
+    public void IncreaseLenght(int value)
+    {
+        for (int i = 0; i < value; i++)
+            IncreaseLenght();
+    }
+
     public void DecreaseLenght() //Decrease snake lenght by 1
     {
         if (snakeParts.Count == 3) //cant be lower than 3

@@ -33,5 +33,6 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
+        FindObjectOfType<SnakeController>().ResetDirection();
     }
 }

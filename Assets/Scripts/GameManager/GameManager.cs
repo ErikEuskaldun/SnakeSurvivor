@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject GameWonPopUp;
     public bool canInteract = true;
     public int timer = 300;
-    public bool gameStarted = false;
     [SerializeField] private StatsMenu statsMenu;
+    [SerializeField] private UpgradesManager upgradesController;
 
     private void Start()
     {
@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviour
     float second = 0;
     private void TimeController()
     {
-        if (!gameStarted)
-            return;
         second += Time.deltaTime;
         if (second > 1f)
         {
@@ -36,11 +34,6 @@ public class GameManager : MonoBehaviour
         }
         if (timer <= 0)
             GameWon();
-    }
-
-    public void GameStart()
-    {
-        gameStarted = true;
     }
 
     public void GameOver()

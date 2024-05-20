@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SnakePartCollider : MonoBehaviour, IInteractable
 {
+
     public void OnInteract()
     {
         GameObject snake = GameObject.FindGameObjectWithTag("SnakeController");
