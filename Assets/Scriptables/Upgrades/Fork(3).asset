@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eba4bbcfb5d2ee848b79018f525ba925, type: 3}
-  m_Name: RottenApple(2)
+  m_Script: {fileID: 11500000, guid: 2274d36d7b8bc714e96a1c770ec0f421, type: 3}
+  m_Name: Fork(3)
   m_EditorClassIdentifier: 
-  foodName: RottenApple
-  points: -80
-  tailLength: 1
-  spawnTime: 0
-  despawnTime: 8
-  speed: 0.0375
+  id: Fork3
+  upgradeName: Fork
+  level: 3
+  evolution: {fileID: 0}
+  meatball: {fileID: 11400000, guid: 54dd92be13c0381448989fead0bf4c60, type: 2}

@@ -10,8 +10,12 @@ public class SnakeVariables : MonoBehaviour
     public int length = 1;
     public List<SnakePart> snakeParts = new List<SnakePart>();
     [SerializeField] private GameObject snakePartPrefab;
+    [SerializeField] private int level = 1;
     [SerializeField] private int points = 0;
+    private int maxPoints = 100;
     StatsMenu statsUI;
+
+    private float LEVEL_XP_MULTIPIER = 1.5f;
 
     public int Points { get => points; }
 
@@ -87,7 +91,16 @@ public class SnakeVariables : MonoBehaviour
     {
         points += value;
 
-        statsUI.UpdatePoints(points);
+        if(points>=maxPoints)
+        {
+            points -= maxPoints;
+            level++;
+            maxPoints = Mathf.RoundToInt(maxPoints * LEVEL_XP_MULTIPIER);
+            FindObjectOfType<UpgradesManager>().TEST_RandomUpgrade();
+            statsUI.UpdateLevel(level);
+        }
+
+        statsUI.UpdatePoints(points, maxPoints);
     }
 
     public void IncreaseSpeed(float value)
@@ -105,9 +118,10 @@ public class SnakeVariables : MonoBehaviour
 
     public void UpdateUIAll()
     {
-        statsUI.UpdatePoints(points);
+        statsUI.UpdatePoints(points, maxPoints);
         statsUI.UpdateSpeed(speed);
         statsUI.UpdateLenght(length);
         statsUI.UpdateHighScore(PlayerPrefs.GetInt("HighScore"));
+        statsUI.UpdateLevel(level);
     }
 }

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d53e47dba9eb024daffb070d8fbce02, type: 3}
-  m_Name: Apple(2)
+  m_Name: Apple(3)
   m_EditorClassIdentifier: 
-  id: Apple2
+  id: Apple3
   upgradeName: Apple
-  level: 2
-  evolution: {fileID: 11400000, guid: 43cd16a2068af6d4faf63c80f300075f, type: 2}
-  apple: {fileID: 11400000, guid: b3c964f8a5e011240b3a4b8c2c9d2588, type: 2}
-  badApple: {fileID: 11400000, guid: 55c4f38e6fac677448f726b36d2b10fb, type: 2}
+  level: 3
+  evolution: {fileID: 11400000, guid: e51762b644cb6e34286d4d2df671b408, type: 2}
+  apple: {fileID: 11400000, guid: a301f9a18aa04414b9bc6ff171e60e3d, type: 2}
+  badApple: {fileID: 11400000, guid: e5f48094bf911ca44a014cc2a56c61bd, type: 2}

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Apple(2)
   m_EditorClassIdentifier: 
   foodName: Apple
-  points: 150
+  points: 130
   tailLength: 1
   spawnTime: 13
-  despawnTime: 13
+  despawnTime: 11
   speed: 0.0375

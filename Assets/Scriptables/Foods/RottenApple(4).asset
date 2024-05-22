@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eba4bbcfb5d2ee848b79018f525ba925, type: 3}
-  m_Name: RottenApple(2)
+  m_Name: RottenApple(4)
   m_EditorClassIdentifier: 
   foodName: RottenApple
-  points: -80
+  points: -40
   tailLength: 1
   spawnTime: 0
-  despawnTime: 8
+  despawnTime: 4
   speed: 0.0375

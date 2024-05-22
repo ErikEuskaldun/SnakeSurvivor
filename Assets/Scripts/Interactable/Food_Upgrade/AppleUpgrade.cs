@@ -2,28 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AppleUpgrade : Upgrade
+public class AppleUpgrade : Upgrade, ILevelUp
 {
     [SerializeField] AppleScriptable scriptable;
     [SerializeField] GameObject applePrefab, rottenApplePrefab;
 
-    float time = 0f;
+    private void Awake()
+    {
+        UpdateInfo(scriptable, scriptable.evolution == null ? true : false);
+    }
+
     private void Start()
     {
         time = scriptable.apple.spawnTime-0.1f;
     }
 
+    float time = 0f;
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.KeypadPlus))
-        {
-            if(scriptable.evolution!=null)
-            {
-                actualLevel++;
-                scriptable = scriptable.evolution;
-            }
-        }
-
         time += Time.deltaTime;
         if (time > scriptable.apple.spawnTime)
         {
@@ -47,5 +43,15 @@ public class AppleUpgrade : Upgrade
 
         newRottenApple.Instantiate(scriptable.badApple);
         newRottenApple.transform.position = position;
+    }
+
+    public void LevelUp()
+    {
+        if (scriptable.evolution != null)
+        {
+            scriptable = scriptable.evolution;
+            UpdateInfo(scriptable, scriptable.evolution == null ? true : false);
+            Debug.Log(scriptable.upgradeName + " Lvl Up " + (actualLevel - 1) + " -> " + actualLevel);
+        }
     }
 }
