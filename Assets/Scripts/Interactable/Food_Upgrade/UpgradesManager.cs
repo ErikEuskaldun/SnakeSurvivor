@@ -63,7 +63,7 @@ public class UpgradesManager : MonoBehaviour
         {
             int random = Random.Range(0, posibleEvolutions.Count);
             GameObject randomUpgrade = posibleEvolutions[random];
-            ILevelUp upgrade = randomUpgrade.GetComponent(typeof(ILevelUp)) as ILevelUp;
+            IUpgrade upgrade = randomUpgrade.GetComponent(typeof(IUpgrade)) as IUpgrade;
             upgrade.LevelUp();
         }
 
@@ -75,7 +75,6 @@ public class UpgradesManager : MonoBehaviour
         {
             Upgrade upgrade = upgradePrefab.GetComponent<Upgrade>();
             string uName = upgrade.UpgradeName;
-            Debug.Log(uName);
             upgradeDictionary.Add(uName, upgradePrefab);
         }
     }

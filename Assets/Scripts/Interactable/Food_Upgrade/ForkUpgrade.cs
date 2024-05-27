@@ -2,38 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForkUpgrade : Upgrade, ILevelUp
+public class ForkUpgrade : Upgrade, IUpgrade
 {
     [SerializeField] ForkScriptable scriptable;
     [SerializeField] GameObject meatballPrefab;
 
-    private void Awake()
-    {
-        UpdateInfo(scriptable, scriptable.evolution == null ? true : false);
-    }
-
     private void Start()
     {
-        time = scriptable.meatball.spawnTime-0.1f;
+        StartTimer(scriptable.meatball.spawnTime);
     }
 
-    float time = 0f;
-    private void Update()
+    public override void UpgradeLoop()
     {
-        time += Time.deltaTime;
+        base.UpgradeLoop();
         if (time > scriptable.meatball.spawnTime)
         {
             time = 0;
-            InstantiateMeatball();
+            InstantiateFoodInRandomPosition(meatballPrefab, scriptable.meatball); //Instantiate meatball
         }
-    }
-
-    private void InstantiateMeatball()
-    {
-        Meatball newMeatball = Instantiate(meatballPrefab, Vector3.up * 100, Quaternion.identity, this.transform).GetComponent<Meatball>();
-
-        newMeatball.Instantiate(scriptable.meatball);
-        newMeatball.SetRandomPosition();
     }
 
     public void LevelUp()
@@ -41,8 +27,13 @@ public class ForkUpgrade : Upgrade, ILevelUp
         if (scriptable.evolution != null)
         {
             scriptable = scriptable.evolution;
-            UpdateInfo(scriptable, scriptable.evolution == null ? true : false);
-            Debug.Log(scriptable.upgradeName + " Lvl Up " + (actualLevel - 1) + " -> " + actualLevel);
+            UpdateInfo();
+            Debug.Log(LevelUpString(scriptable.upgradeName, scriptable.level));
         }
+    }
+
+    public void UpdateInfo()
+    {
+        UpdateInfo(scriptable, scriptable.evolution == null ? true : false);
     }
 }

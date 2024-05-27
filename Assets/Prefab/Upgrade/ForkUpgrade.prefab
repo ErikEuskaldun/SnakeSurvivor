@@ -44,8 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 928649fd6f5f29b45a5d74726e5e6e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualLevel: 1
-  upgradeName: Fork
+  upgradeInfoScriptable: {fileID: 11400000, guid: 47db894097f8675409635c76d51f6a22, type: 2}
   isMaxLevel: 0
   scriptable: {fileID: 11400000, guid: 47db894097f8675409635c76d51f6a22, type: 2}
   meatballPrefab: {fileID: 7839497630658632422, guid: 3050b70d242b0524da0d0c42fa3a7046, type: 3}

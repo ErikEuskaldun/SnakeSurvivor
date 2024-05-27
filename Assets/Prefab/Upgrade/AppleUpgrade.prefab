@@ -44,8 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a91c92b81b32448096c073bdb3035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualLevel: 1
-  upgradeName: Apple
+  upgradeInfoScriptable: {fileID: 11400000, guid: 589d36c6a108ba44fbb2f9dd7103e386, type: 2}
   isMaxLevel: 0
   scriptable: {fileID: 11400000, guid: 589d36c6a108ba44fbb2f9dd7103e386, type: 2}
   applePrefab: {fileID: 7839497630658632422, guid: 642efbabdc0ac9b4bbf99b21c932bdb8, type: 3}

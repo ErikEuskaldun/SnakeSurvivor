@@ -37,6 +37,7 @@ public class SnakeController : MonoBehaviour
         do //Timer for next action
         {
             count += Time.deltaTime * snakeVariables.speed;
+            //snakeHead.transform.position = Vector3.Lerp(startingPosition, targetPosition, count);
             yield return new WaitForEndOfFrame();
         } while (count < 1f);
 

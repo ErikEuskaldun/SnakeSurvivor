@@ -2,25 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AppleUpgrade : Upgrade, ILevelUp
+public class AppleUpgrade : Upgrade, IUpgrade
 {
     [SerializeField] AppleScriptable scriptable;
     [SerializeField] GameObject applePrefab, rottenApplePrefab;
 
-    private void Awake()
-    {
-        UpdateInfo(scriptable, scriptable.evolution == null ? true : false);
-    }
-
     private void Start()
     {
-        time = scriptable.apple.spawnTime-0.1f;
+        StartTimer(scriptable.apple.spawnTime);
     }
 
-    float time = 0f;
-    private void Update()
+    public override void UpgradeLoop()
     {
-        time += Time.deltaTime;
+        base.UpgradeLoop();
         if (time > scriptable.apple.spawnTime)
         {
             time = 0;
@@ -30,18 +24,13 @@ public class AppleUpgrade : Upgrade, ILevelUp
 
     private void InstantiateApple()
     {
-        Apple newApple = Instantiate(applePrefab, Vector3.up * 100, Quaternion.identity, this.transform).GetComponent<Apple>();
+        Food newApple = base.InstantiateFoodInRandomPosition(applePrefab, scriptable.apple);
         newApple.OnDespawnEvent.AddListener(InstantiateRottenApple);
-
-        newApple.Instantiate(scriptable.apple);
-        newApple.SetRandomPosition();
     }
 
     private void InstantiateRottenApple(Vector3 position)
     {
-        Apple newRottenApple = Instantiate(rottenApplePrefab, Vector3.up * 100, Quaternion.identity, this.transform).GetComponent<Apple>();
-
-        newRottenApple.Instantiate(scriptable.badApple);
+        Food newRottenApple = InstantiateFood(rottenApplePrefab, scriptable.badApple);
         newRottenApple.transform.position = position;
     }
 
@@ -50,8 +39,13 @@ public class AppleUpgrade : Upgrade, ILevelUp
         if (scriptable.evolution != null)
         {
             scriptable = scriptable.evolution;
-            UpdateInfo(scriptable, scriptable.evolution == null ? true : false);
-            Debug.Log(scriptable.upgradeName + " Lvl Up " + (actualLevel - 1) + " -> " + actualLevel);
+            UpdateInfo();
+            Debug.Log(LevelUpString(scriptable.name, scriptable.level));
         }
+    }
+
+    public void UpdateInfo()
+    {
+        UpdateInfo(scriptable, scriptable.evolution == null ? true : false);
     }
 }
