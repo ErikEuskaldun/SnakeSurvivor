@@ -8,7 +8,7 @@ public class Upgrade : MonoBehaviour
     [SerializeField] protected bool isMaxLevel = false;
 
     public bool IsMaxLevel { get => isMaxLevel; }
-    [SerializeField] public string UpgradeName { get => upgradeInfoScriptable.name; }
+    [SerializeField] public string UpgradeName { get => upgradeInfoScriptable.upgradeName; }
     public int Level { get => upgradeInfoScriptable.level; }
 
     protected float time = 0f;

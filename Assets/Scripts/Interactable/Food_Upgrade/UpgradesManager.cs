@@ -9,11 +9,6 @@ public class UpgradesManager : MonoBehaviour
     public List<GameObject> upgradePrefabs = new List<GameObject>();
     private Dictionary<string, GameObject> upgradeDictionary = new Dictionary<string, GameObject>();
 
-    private void Awake()
-    {
-        
-    }
-
     private void Start()
     {
         GenerateDicionary();
@@ -23,21 +18,52 @@ public class UpgradesManager : MonoBehaviour
         NewUpgrade(randomUpgradeName);
     }
 
-    public void TEST_RandomUpgrade()
+    public void UpgradeSelector()
+    {
+        List<UpgradeScriptable> upgrades = new List<UpgradeScriptable>();
+
+        UpgradeScriptable uScriptable = default;
+        do
+        {
+            uScriptable = GetRandomUpgrade(upgrades);
+            if (uScriptable != null)
+                upgrades.Add(uScriptable);
+        } while (uScriptable!=null && upgrades.Count!=3);
+
+        if (upgrades.Count != 0)
+            FindObjectOfType<UpgradeSelector>().GenerateUpgradeSelection(upgrades);
+        else
+            Debug.Log("No Upgrades Available");
+    }
+
+    private UpgradeScriptable GetRandomUpgrade(List<UpgradeScriptable> repeatedList)
     {
         bool newUpgrade = false;
         bool lvlUpUpgrade = false;
 
-        List<GameObject> posibleEvolutions = new List<GameObject>();
+        List<UpgradeScriptable> posibleEvolutions = new List<UpgradeScriptable>();
+        List<UpgradeScriptable> posibleNewUpgrade = new List<UpgradeScriptable>();
 
         if (upgrades.Count != 4 && upgradePrefabs.Count != 0)
-            newUpgrade = true;
+        {
+            foreach (GameObject upgradeGO in upgradePrefabs)
+            {
+                Upgrade upgrade = upgradeGO.GetComponent<Upgrade>();
+                if (!repeatedList.Contains(upgrade.upgradeInfoScriptable))
+                    posibleNewUpgrade.Add(upgrade.upgradeInfoScriptable);
+            }
+            if(posibleNewUpgrade.Count!=0)
+                newUpgrade = true;
+        }
+            
 
         foreach (GameObject upgradeGO in upgrades)
         {
             Upgrade upgrade = upgradeGO.GetComponent<Upgrade>();
-            if (!upgrade.IsMaxLevel)
-                posibleEvolutions.Add(upgradeGO);
+            IUpgrade iUpgrade = upgrade.GetComponent(typeof(IUpgrade)) as IUpgrade;
+
+            if (!upgrade.IsMaxLevel && !repeatedList.Contains(iUpgrade.NextLevelScriptable()))
+                posibleEvolutions.Add(iUpgrade.NextLevelScriptable());
         }
         
         if (posibleEvolutions.Count != 0)
@@ -55,18 +81,18 @@ public class UpgradesManager : MonoBehaviour
 
         if (newUpgrade)
         {
-            int random = Random.Range(0, upgrades.Count);
-            string randomUpgradeName = upgradePrefabs[random].GetComponent<Upgrade>().UpgradeName;
-            NewUpgrade(randomUpgradeName);
+            int random = Random.Range(0, posibleNewUpgrade.Count);
+            UpgradeScriptable randomUpgrade = posibleNewUpgrade[random];
+            return randomUpgrade;
         }
         else if(lvlUpUpgrade)
         {
             int random = Random.Range(0, posibleEvolutions.Count);
-            GameObject randomUpgrade = posibleEvolutions[random];
-            IUpgrade upgrade = randomUpgrade.GetComponent(typeof(IUpgrade)) as IUpgrade;
-            upgrade.LevelUp();
+            UpgradeScriptable randomUpgrade = posibleEvolutions[random];
+            return randomUpgrade;
         }
 
+        return null;
     }
 
     private void GenerateDicionary()
@@ -79,6 +105,21 @@ public class UpgradesManager : MonoBehaviour
         }
     }
 
+    public void LevelUpUpgrade(string upgradeName)
+    {
+        GameObject upgrade = default;
+        foreach (GameObject u in upgrades)
+        {
+            string uName = u.GetComponent<Upgrade>().upgradeInfoScriptable.upgradeName;
+            if (uName == upgradeName)
+                upgrade = u;
+        }
+        IUpgrade iUpgrade = upgrade.GetComponent(typeof(IUpgrade)) as IUpgrade;
+        iUpgrade.LevelUp();
+
+        UpdateInfo(upgrades.IndexOf(upgrade));
+    }
+
     public void NewUpgrade(string upgradeName)
     {
         GameObject upgrade = upgradeDictionary[upgradeName];
@@ -88,5 +129,13 @@ public class UpgradesManager : MonoBehaviour
         Debug.Log("New Upgrade: " + i.GetComponent<Upgrade>().UpgradeName);
 
         upgrades.Add(i);
+
+        UpdateInfo(upgrades.IndexOf(i));
+    }
+
+    private void UpdateInfo(int upgradePosition)
+    {
+        Upgrade upgrade = upgrades[upgradePosition].GetComponent<Upgrade>();
+        FindObjectOfType<UpgradeMenu>().ChangeUpgradeInfo(upgrade, upgradePosition);
     }
 }

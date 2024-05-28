@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2274d36d7b8bc714e96a1c770ec0f421, type: 3}
   m_Name: Fork(2)
   m_EditorClassIdentifier: 
-  id: Fork2
   upgradeName: Fork
   level: 2
+  description: fork desc 2
+  image: {fileID: 21300000, guid: 5e0c1f2c8d5212e4f981c05f42850dda, type: 3}
   evolution: {fileID: 11400000, guid: f91dd70d2ac52794aa3457491112136d, type: 2}
   meatball: {fileID: 11400000, guid: 812d05b1d6164ad4f8aeddc24acda896, type: 2}

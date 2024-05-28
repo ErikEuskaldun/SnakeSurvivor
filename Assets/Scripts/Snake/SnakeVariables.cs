@@ -96,7 +96,7 @@ public class SnakeVariables : MonoBehaviour
             points -= maxPoints;
             level++;
             maxPoints = Mathf.RoundToInt(maxPoints * LEVEL_XP_MULTIPIER);
-            FindObjectOfType<UpgradesManager>().TEST_RandomUpgrade();
+            FindObjectOfType<UpgradesManager>().UpgradeSelector();
             statsUI.UpdateLevel(level);
         }
 

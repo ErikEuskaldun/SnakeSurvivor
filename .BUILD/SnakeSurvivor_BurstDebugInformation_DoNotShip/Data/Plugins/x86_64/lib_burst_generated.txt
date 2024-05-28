@@ -10,6 +10,7 @@ Library: C:\Users\Erik\Documents\Unity Proyects\Unity Projects\SnakeSurvivor\Tem
 --assembly-defines=UnityEngine;
 --assembly-defines=Assembly-CSharp;
 --assembly-defines=Unity.2D.IK.Runtime;
+--assembly-defines=Unity.Postprocessing.Runtime;
 --assembly-defines=Unity.Burst;
 --assembly-defines=Unity.VisualScripting.Core;
 --assembly-defines=Unity.2D.Animation.Runtime;
@@ -99,6 +100,7 @@ Library: C:\Users\Erik\Documents\Unity Proyects\Unity Projects\SnakeSurvivor\Tem
 --assembly-defines=UnityEngine;
 --assembly-defines=Assembly-CSharp;
 --assembly-defines=Unity.2D.IK.Runtime;
+--assembly-defines=Unity.Postprocessing.Runtime;
 --assembly-defines=Unity.Burst;
 --assembly-defines=Unity.VisualScripting.Core;
 --assembly-defines=Unity.2D.Animation.Runtime;

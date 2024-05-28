@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class StatsMenu : MonoBehaviour
 {
-    [SerializeField] TMP_Text txtSpeed, txtLenght, txtPoints, txtTime, txtHighScore, txtLevel;
+    [SerializeField] TMP_Text txtSpeed, txtLenght, txtPoints, txtTime, txtHighScore, txtLevel, txtNextLevel;
     [SerializeField] Slider slXp;
 
     public void UpdateSpeed(float speed)
@@ -29,7 +29,8 @@ public class StatsMenu : MonoBehaviour
 
     public void UpdateLevel(int level)
     {
-        txtLevel.text = "Level " + level;
+        txtLevel.text = level.ToString();
+        txtNextLevel.text = (level + 1).ToString();
     }
 
     public void UpdateHighScore(int points)

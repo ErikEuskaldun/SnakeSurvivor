@@ -5,6 +5,7 @@ using UnityEngine;
 public interface IUpgrade
 {
     public void LevelUp();
+    public UpgradeScriptable NextLevelScriptable();
     public void UpdateInfo();
     public void UpgradeLoop();
 }

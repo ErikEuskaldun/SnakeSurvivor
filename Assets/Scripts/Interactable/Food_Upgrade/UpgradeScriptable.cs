@@ -8,4 +8,7 @@ public class UpgradeScriptable : ScriptableObject
     [Header("Upgrade Info Variables")]
     public string upgradeName;
     public int level;
+    [TextArea(2,5)]
+    public string description;
+    public Sprite image;
 }

@@ -45,6 +45,19 @@ public class GameManager : MonoBehaviour
         CheckHighScore();
     }
 
+    public void LockInteraction()
+    {
+        canInteract = false;
+        Time.timeScale = 0;
+    }
+
+    public void ResumeInteraction()
+    {
+        canInteract = true;
+        Time.timeScale = 1;
+        FindObjectOfType<SnakeController>().ResetDirection();
+    }
+
     public void GameWon()
     {
         canInteract = false;

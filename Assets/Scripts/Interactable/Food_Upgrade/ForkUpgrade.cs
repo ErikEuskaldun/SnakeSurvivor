@@ -36,4 +36,11 @@ public class ForkUpgrade : Upgrade, IUpgrade
     {
         UpdateInfo(scriptable, scriptable.evolution == null ? true : false);
     }
+
+    public UpgradeScriptable NextLevelScriptable()
+    {
+        if (!IsMaxLevel)
+            return scriptable.evolution;
+        return null;
+    }
 }

@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d53e47dba9eb024daffb070d8fbce02, type: 3}
   m_Name: Apple(5)
   m_EditorClassIdentifier: 
-  id: Apple5
   upgradeName: Apple
   level: 5
+  description: Apple Decsription lvl 5
+  image: {fileID: 21300000, guid: 520b93f3323d0b24a8236dd56a66fb8d, type: 3}
   evolution: {fileID: 0}
   apple: {fileID: 11400000, guid: 5dee90567210cb94ea45d3c531865484, type: 2}
   badApple: {fileID: 11400000, guid: 77655bbb118fd49438e8120f8b00c978, type: 2}
