@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     public void LockInteraction()
     {
         canInteract = false;
+        FindObjectOfType<SnakeController>().inputLocked = true;
         Time.timeScale = 0;
     }
 
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour
     {
         canInteract = true;
         Time.timeScale = 1;
-        FindObjectOfType<SnakeController>().ResetDirection();
+        FindObjectOfType<SnakeController>().inputLocked = false;
     }
 
     public void GameWon()

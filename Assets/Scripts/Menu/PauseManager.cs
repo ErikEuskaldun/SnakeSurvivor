@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private Button defaultSelectedButton;
     bool isPaused = false;
 
     private void Update()
@@ -25,14 +27,18 @@ public class PauseManager : MonoBehaviour
     {
         isPaused = true;
         pauseMenu.SetActive(true);
+        FindObjectOfType<SnakeController>().inputLocked = true;
         Time.timeScale = 0;
+        defaultSelectedButton.Select();
     }
 
     public void Resume()
     {
         isPaused = false;
         pauseMenu.SetActive(false);
-        Time.timeScale = 1;
-        FindObjectOfType<SnakeController>().ResetDirection();
+        SnakeController snake = FindObjectOfType<SnakeController>();
+        if (snake.IsGameStarted)
+            Time.timeScale = 1;
+        snake.inputLocked = false;
     }
 }

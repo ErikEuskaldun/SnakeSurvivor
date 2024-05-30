@@ -11,6 +11,9 @@ public class SnakeController : MonoBehaviour
     [SerializeField] private EDirection direction = EDirection.Null;
     public SnakePart snakeHead;
     private SnakeVariables snakeVariables;
+    public bool inputLocked = true;
+
+    public bool IsGameStarted { get => direction == EDirection.Null ? false : true; }
 
     private void Start()
     {
@@ -22,7 +25,8 @@ public class SnakeController : MonoBehaviour
 
     void Update()
     {
-        GetInput();
+        if(!inputLocked)
+            GetInput();
         Move();
     }
 
@@ -90,8 +94,7 @@ public class SnakeController : MonoBehaviour
             Time.timeScale = 1;
             this.direction = inputA;
         }
-        inputA = EDirection.Null;
-        inputB = EDirection.Null;
+        ResetDirection();
     }
 
     public void ResetDirection()
