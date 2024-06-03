@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
@@ -8,19 +10,32 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private Button defaultSelectedButton;
     bool isPaused = false;
+    [SerializeField]PlayerInput inputs;
 
-    private void Update()
+    private void Start()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (!GetComponent<GameManager>().canInteract)
-                return;
-            isPaused = !isPaused;
-            if (isPaused)
-                Pause();
-            else
-                Resume();
-        }
+        inputs.uiInputModule.cancel.action.performed += Cancel;
+    }
+
+    public void ToglePause(InputAction.CallbackContext callbackContext)
+    {
+        if (!callbackContext.performed || !GetComponent<GameManager>().canInteract)
+            return;
+
+        isPaused = !isPaused;
+        if (isPaused)
+            Pause();
+        else
+            Resume();
+    }
+
+    public void Cancel(InputAction.CallbackContext callbackContext)
+    {
+        if (!callbackContext.performed)
+            return;
+
+        if (isPaused)
+            Resume();
     }
 
     public void Pause()

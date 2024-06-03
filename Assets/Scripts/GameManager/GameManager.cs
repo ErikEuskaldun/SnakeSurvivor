@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject GameOverPopUp;
+    [SerializeField] Button GameOverDefaultButton;
     [SerializeField] GameObject GameWonPopUp;
+    [SerializeField] Button GameWonDefaultButton;
     public bool canInteract = true;
     public int timer = 300;
     [SerializeField] private StatsMenu statsMenu;
@@ -41,6 +44,7 @@ public class GameManager : MonoBehaviour
         canInteract = false;
         Time.timeScale = 0;
         GameOverPopUp.SetActive(true);
+        GameOverDefaultButton.Select();
 
         CheckHighScore();
     }
@@ -64,6 +68,7 @@ public class GameManager : MonoBehaviour
         canInteract = false;
         Time.timeScale = 0;
         GameWonPopUp.SetActive(true);
+        GameWonDefaultButton.Select();
 
         CheckHighScore();
     }

@@ -26,4 +26,14 @@ public static class SnakeUtils
     {
         return new Vector3(position.x * TILE_SIZE, position.y * TILE_SIZE);
     }
+
+    public static void ConvertToFixedDirection(ref Vector2 direction)
+    {
+        direction.Normalize();
+
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+            direction = direction.x > 0 ? Vector2.right : Vector2.left;
+        else
+            direction = direction.y > 0 ? Vector2.up : Vector2.down;
+    }
 }

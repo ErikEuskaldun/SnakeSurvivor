@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(SnakeVariables))]
 public class SnakeController : MonoBehaviour
@@ -12,6 +13,7 @@ public class SnakeController : MonoBehaviour
     public SnakePart snakeHead;
     private SnakeVariables snakeVariables;
     public bool inputLocked = true;
+    [SerializeField] PlayerInput playerInput;
 
     public bool IsGameStarted { get => direction == EDirection.Null ? false : true; }
 
@@ -25,8 +27,6 @@ public class SnakeController : MonoBehaviour
 
     void Update()
     {
-        if(!inputLocked)
-            GetInput();
         Move();
     }
 
@@ -103,25 +103,35 @@ public class SnakeController : MonoBehaviour
         inputB = EDirection.Null;
     }
 
-    void GetInput()
+    public void GetInput(InputAction.CallbackContext callbackContext)
     {
-        EDirection input = EDirection.Null;
+        if (inputLocked || !callbackContext.performed)
+            return;
 
-        if (Input.GetKeyDown(KeyCode.W))
-            input = EDirection.Up;
-        else if (Input.GetKeyDown(KeyCode.S))
-            input = EDirection.Down;
-        else if (Input.GetKeyDown(KeyCode.D))
-            input = EDirection.Right;
-        else if (Input.GetKeyDown(KeyCode.A))
-            input = EDirection.Left;
+        Vector2 input = callbackContext.ReadValue<Vector2>();
 
-        if(input!=EDirection.Null) //Double input save
+        if (playerInput.currentControlScheme == "Gamepad" && input.magnitude>0.5f)
+        {
+            SnakeUtils.ConvertToFixedDirection(ref input);
+        }
+            
+        EDirection inputDirection = EDirection.Null;
+
+        if (input == Vector2.up)
+            inputDirection = EDirection.Up;
+        else if (input == Vector2.down)
+            inputDirection = EDirection.Down;
+        else if (input == Vector2.right)
+            inputDirection = EDirection.Right;
+        else if (input == Vector2.left)
+            inputDirection = EDirection.Left;
+
+        if(inputDirection != EDirection.Null) //Double input save
         {
             if (inputA == EDirection.Null)
-                inputA = ValidateDirection(direction, input) ? input : EDirection.Null;
+                inputA = ValidateDirection(direction, inputDirection) ? inputDirection : EDirection.Null;
             else if (inputB == EDirection.Null)
-                inputB = ValidateDirection(inputA, input) ? input : EDirection.Null;
+                inputB = ValidateDirection(inputA, inputDirection) ? inputDirection : EDirection.Null;
         }
     }
 
@@ -130,7 +140,7 @@ public class SnakeController : MonoBehaviour
     {
         EDirection d = direction;
         EDirection i = input;
-        if (d == EDirection.Right && i == EDirection.Left || d == EDirection.Left && i == EDirection.Right ||
+        if (d == i || d == EDirection.Right && i == EDirection.Left || d == EDirection.Left && i == EDirection.Right ||
             d == EDirection.Up && i == EDirection.Down || d == EDirection.Down && i == EDirection.Up)
             return false;
         return true;

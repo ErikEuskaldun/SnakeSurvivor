@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-[RequireComponent(typeof(SnakeController))]
 public class SnakeVariables : MonoBehaviour
 {
     public float speed = 5f;
