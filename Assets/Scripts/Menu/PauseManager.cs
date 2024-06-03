@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
@@ -10,11 +11,11 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private Button defaultSelectedButton;
     bool isPaused = false;
-    [SerializeField]PlayerInput inputs;
+    [SerializeField]InputSystemUIInputModule inputsUI;
 
     private void Start()
     {
-        inputs.uiInputModule.cancel.action.performed += Cancel;
+        inputsUI.cancel.action.performed += Cancel;
     }
 
     public void ToglePause(InputAction.CallbackContext callbackContext)

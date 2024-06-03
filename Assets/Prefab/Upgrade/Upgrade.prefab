@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 6374817123328461501}
   - component: {fileID: 5393902061078290837}
   - component: {fileID: 5220277660930116238}
+  - component: {fileID: -390042131625252996}
   m_Layer: 5
   m_Name: Upgrade
   m_TagString: Untagged
@@ -436,7 +437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -483,3 +484,15 @@ MonoBehaviour:
   txtLevel: {fileID: 8877108521449223700}
   txtDescription: {fileID: 907321655643098294}
   upgradeInfo: {fileID: 11400000, guid: 5114a42ec924c1c479147fee691d88f9, type: 2}
+--- !u!114 &-390042131625252996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7664100662309531268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e13c2cc84605548914165a314347b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

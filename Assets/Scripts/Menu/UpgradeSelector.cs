@@ -20,11 +20,30 @@ public class UpgradeSelector : MonoBehaviour
         {
             UpgradeCard card = Instantiate(upgradeCardPrefab, cardHolder).GetComponent<UpgradeCard>();
             card.SetInfo(upgrade);
+            upgradeCards.Add(card.gameObject);
             if(!selectedFirstSlot)
             {
                 card.GetComponent<Button>().Select();
                 selectedFirstSlot = true;
             }
+        }
+
+        for (int i = 0; i < upgradeCards.Count; i++)
+        {
+            Button uButton = upgradeCards[i].GetComponent<Button>();
+            Navigation navigation = new Navigation();
+            navigation.mode = Navigation.Mode.Explicit;
+
+            if (i==0)
+                navigation.selectOnLeft = upgradeCards[upgradeCards.Count-1].GetComponent<Button>();
+            else
+                navigation.selectOnLeft = upgradeCards[i - 1].GetComponent<Button>();
+            if(i== upgradeCards.Count - 1)
+                navigation.selectOnRight = upgradeCards[0].GetComponent<Button>();
+            else
+                navigation.selectOnRight = upgradeCards[i + 1].GetComponent<Button>();
+
+            uButton.navigation = navigation;
         }
     }
 
