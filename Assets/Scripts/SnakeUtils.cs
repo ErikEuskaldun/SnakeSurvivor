@@ -36,4 +36,24 @@ public static class SnakeUtils
         else
             direction = direction.y > 0 ? Vector2.up : Vector2.down;
     }
+
+    public static Resolution GetAspectRatio(Resolution resolution)
+    {
+        Resolution aspectRatio = new Resolution();
+        int gcd = GCD(resolution.width, resolution.height);
+        aspectRatio.width = resolution.width / gcd;
+        aspectRatio.height = resolution.height / gcd;
+        return aspectRatio;
+    }
+
+    private static int GCD(int a, int b)
+    {
+        while (b != 0)
+        {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
 }

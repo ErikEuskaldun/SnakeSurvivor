@@ -12,15 +12,17 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private Button defaultSelectedButton;
     bool isPaused = false;
     [SerializeField]InputSystemUIInputModule inputsUI;
-
+    
     private void Start()
     {
-        inputsUI.cancel.action.performed += Cancel;
+        inputsUI.cancel.action.performed += ToglePause;
     }
 
     public void ToglePause(InputAction.CallbackContext callbackContext)
     {
-        if (!callbackContext.performed || !GetComponent<GameManager>().canInteract)
+        if (!callbackContext.performed || !GetComponent<GameManager>().canInteract || inputDone)
+            return;
+        if (callbackContext.action.name == "Cancel" && !isPaused)
             return;
 
         isPaused = !isPaused;
@@ -28,24 +30,17 @@ public class PauseManager : MonoBehaviour
             Pause();
         else
             Resume();
-    }
 
-    public void Cancel(InputAction.CallbackContext callbackContext)
-    {
-        if (!callbackContext.performed)
-            return;
-
-        if (isPaused)
-            Resume();
+        StartCoroutine(DobleInputSolver());
     }
 
     public void Pause()
     {
         isPaused = true;
+        defaultSelectedButton.Select();
         pauseMenu.SetActive(true);
         FindObjectOfType<SnakeController>().inputLocked = true;
         Time.timeScale = 0;
-        defaultSelectedButton.Select();
     }
 
     public void Resume()
@@ -56,5 +51,13 @@ public class PauseManager : MonoBehaviour
         if (snake.IsGameStarted)
             Time.timeScale = 1;
         snake.inputLocked = false;
+    }
+
+    private bool inputDone = false;
+    IEnumerator DobleInputSolver()
+    {
+        inputDone = true;
+        yield return new WaitForEndOfFrame();
+        inputDone = false;
     }
 }

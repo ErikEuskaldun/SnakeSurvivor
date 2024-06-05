@@ -13,6 +13,7 @@ public class UpgradeSelector : MonoBehaviour
     {
         cardHolder.gameObject.SetActive(true);
 
+        upgradeCards = new List<GameObject>();
         FindObjectOfType<GameManager>().LockInteraction();
 
         bool selectedFirstSlot = false;

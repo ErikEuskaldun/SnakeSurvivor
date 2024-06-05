@@ -181,7 +181,7 @@
                 },
                 {
                     "name": "",
-                    "id": "29e41c1f-fa95-40e3-a103-c9736d065d9b",
+                    "id": "5e3d958c-1897-45ec-a090-bdaffa8c5c71",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
@@ -591,7 +591,18 @@
                     "path": "*/{Cancel}",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR;Keyboard",
+                    "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c5fe5e8-ab2a-4cee-ad54-14036d0ad318",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
