@@ -20,7 +20,7 @@ public class PauseManager : MonoBehaviour
 
     public void ToglePause(InputAction.CallbackContext callbackContext)
     {
-        if (!callbackContext.performed || !GetComponent<GameManager>().canInteract || inputDone)
+        if (!callbackContext.performed || GetComponent<GameManager>().isLockedMenuing || inputDone)
             return;
         if (callbackContext.action.name == "Cancel" && !isPaused)
             return;
@@ -39,7 +39,8 @@ public class PauseManager : MonoBehaviour
         isPaused = true;
         defaultSelectedButton.Select();
         pauseMenu.SetActive(true);
-        FindObjectOfType<SnakeController>().inputLocked = true;
+        SnakeController snake = FindObjectOfType<SnakeController>();
+        snake.inputLocked = true;
         Time.timeScale = 0;
     }
 
@@ -48,7 +49,7 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
         pauseMenu.SetActive(false);
         SnakeController snake = FindObjectOfType<SnakeController>();
-        if (snake.IsGameStarted)
+        if (!snake.isPlayerStill)
             Time.timeScale = 1;
         snake.inputLocked = false;
     }

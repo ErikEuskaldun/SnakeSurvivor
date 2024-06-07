@@ -2850,7 +2850,7 @@ MonoBehaviour:
   GameOverDefaultButton: {fileID: 1830543345}
   GameWonPopUp: {fileID: 2018392766}
   GameWonDefaultButton: {fileID: 49255191}
-  canInteract: 1
+  isLockedMenuing: 0
   timer: 300
   statsMenu: {fileID: 1868211473}
   upgradesController: {fileID: 1044250003}
@@ -4566,10 +4566,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputA: 0
   inputB: 0
-  direction: 0
+  direction: 2
   snakeHead: {fileID: 42990064705866467}
   inputLocked: 0
   playerInput: {fileID: 371590698}
+  isPlayerStill: 1
 --- !u!114 &1375142236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6984,6 +6985,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1880587196}
   m_CullTransparentMesh: 1
+--- !u!1 &1891733893
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1891733894}
+  - component: {fileID: 1891733895}
+  m_Layer: 0
+  m_Name: _testing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1891733894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891733893}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2, y: -3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1891733895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891733893}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47ec186a729f714987d648f62091da3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perfabs:
+  - {fileID: 7839497630658632422, guid: 642efbabdc0ac9b4bbf99b21c932bdb8, type: 3}
+  - {fileID: 7839497630658632422, guid: 3050b70d242b0524da0d0c42fa3a7046, type: 3}
+  foods:
+  - {fileID: 11400000, guid: 5dee90567210cb94ea45d3c531865484, type: 2}
+  - {fileID: 11400000, guid: 54dd92be13c0381448989fead0bf4c60, type: 2}
 --- !u!1 &1945396717
 GameObject:
   m_ObjectHideFlags: 0
@@ -7545,6 +7596,7 @@ MonoBehaviour:
   nextPart: {fileID: 0}
   prevPart: {fileID: 0}
   isHead: 1
+  direction: 0
 --- !u!212 &4881379020666106519
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7686,3 +7738,4 @@ SceneRoots:
   - {fileID: 1833603266}
   - {fileID: 1518341395}
   - {fileID: 371590699}
+  - {fileID: 1891733894}

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Button GameOverDefaultButton;
     [SerializeField] GameObject GameWonPopUp;
     [SerializeField] Button GameWonDefaultButton;
-    public bool canInteract = true;
+    public bool isLockedMenuing = false;
     public int timer = 300;
     [SerializeField] private StatsMenu statsMenu;
     [SerializeField] private UpgradesManager upgradesController;
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        canInteract = false;
+        isLockedMenuing = true;
         Time.timeScale = 0;
         GameOverPopUp.SetActive(true);
         GameOverDefaultButton.Select();
@@ -51,21 +51,23 @@ public class GameManager : MonoBehaviour
 
     public void LockInteraction()
     {
-        canInteract = false;
+        isLockedMenuing = true;
         FindObjectOfType<SnakeController>().inputLocked = true;
         Time.timeScale = 0;
     }
 
     public void ResumeInteraction()
     {
-        canInteract = true;
-        Time.timeScale = 1;
-        FindObjectOfType<SnakeController>().inputLocked = false;
+        SnakeController snake = FindObjectOfType<SnakeController>();
+        isLockedMenuing = false;
+        if(!snake.isPlayerStill)
+            Time.timeScale = 1;
+        snake.inputLocked = false;
     }
 
     public void GameWon()
     {
-        canInteract = false;
+        isLockedMenuing = true;
         Time.timeScale = 0;
         GameWonPopUp.SetActive(true);
         GameWonDefaultButton.Select();

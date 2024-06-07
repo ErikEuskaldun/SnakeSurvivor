@@ -27,6 +27,7 @@ public class Food : MonoBehaviour
     {
         Vector2Int newPosition = GetComponent<GridElement>().grid.GetRandomEmptySpace();
         this.transform.position = SnakeUtils.ConvertToRealPosition(newPosition);
+        GetComponent<GridElement>().position = newPosition;
     }
 
     protected virtual IEnumerator Despawn()

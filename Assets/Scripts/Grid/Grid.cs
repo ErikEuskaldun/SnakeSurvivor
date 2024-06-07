@@ -58,5 +58,5 @@ public class Grid : MonoBehaviour
 
 public enum EElementType
 {
-    Null, Snake, Apple, Brick
+    Null, Snake, Apple, Brick, Food
 }

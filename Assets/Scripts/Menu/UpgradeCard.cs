@@ -35,6 +35,10 @@ public class UpgradeCard : MonoBehaviour
         else
             upgradeManager.LevelUpUpgrade(upgradeInfo.upgradeName);
 
+        SnakeController snake = FindObjectOfType<SnakeController>();
+        snake.ResetDirection();
+        snake.LockMovement();
+
         FindObjectOfType<GameManager>().ResumeInteraction();
 
         FindObjectOfType<UpgradeSelector>().CloseSelector();

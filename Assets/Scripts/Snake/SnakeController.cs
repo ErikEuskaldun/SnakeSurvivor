@@ -14,8 +14,7 @@ public class SnakeController : MonoBehaviour
     private SnakeVariables snakeVariables;
     public bool inputLocked = true;
     [SerializeField] PlayerInput playerInput;
-
-    public bool IsGameStarted { get => direction == EDirection.Null ? false : true; }
+    public bool isPlayerStill = true;
 
     private void Start()
     {
@@ -30,14 +29,16 @@ public class SnakeController : MonoBehaviour
         Move();
     }
 
-    bool lockMovement = false;
+    bool isProcesingMovement = false;
     public IEnumerator TileMovement(Vector3 targetPosition)
     {
-        lockMovement = true;
+        isProcesingMovement = true;
 
         Vector3 startingPosition = snakeHead.transform.position;
         float count = 0f;
+        snakeHead.ChangeRotation(direction);
         snakeHead.UpdatePosition(targetPosition);
+        
         do //Timer for next action
         {
             count += Time.deltaTime * snakeVariables.speed;
@@ -45,19 +46,15 @@ public class SnakeController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         } while (count < 1f);
 
-        lockMovement = false;
+        isProcesingMovement = false;
     }
 
     private void Move()
     {
-        if (lockMovement)
+        if (isProcesingMovement || isPlayerStill)
             return;
-
-        if (this.direction == EDirection.Null)
-        {
-            GameStart();
+        if (isPlayerStill)
             return;
-        }
             
         EDirection direction = inputA;
         if (inputA == EDirection.Null) //keep direction if input no selected
@@ -85,16 +82,6 @@ public class SnakeController : MonoBehaviour
         inputA = inputB;
         inputB = EDirection.Null;
         if(direction!=EDirection.Null)StartCoroutine(TileMovement(targetPosition)); //Recall movement
-    }
-
-    private void GameStart()
-    {
-        if (inputA != EDirection.Null && inputA != EDirection.Right)
-        {
-            Time.timeScale = 1;
-            this.direction = inputA;
-        }
-        ResetDirection();
     }
 
     public void ResetDirection()
@@ -125,7 +112,7 @@ public class SnakeController : MonoBehaviour
             inputDirection = EDirection.Right;
         else if (input == Vector2.left)
             inputDirection = EDirection.Left;
-
+        
         if(inputDirection != EDirection.Null) //Double input save
         {
             if (inputA == EDirection.Null)
@@ -133,6 +120,24 @@ public class SnakeController : MonoBehaviour
             else if (inputB == EDirection.Null)
                 inputB = ValidateDirection(inputA, inputDirection) ? inputDirection : EDirection.Null;
         }
+
+        if (isPlayerStill && (inputA != EDirection.Null || inputDirection == direction))
+            ResumeMovement();
+    }
+
+    public void LockMovement()
+    {
+        isPlayerStill = true;
+        Time.timeScale = 0;
+    }
+
+    private void ResumeMovement()
+    {
+        Time.timeScale = 1;
+        if(inputA != EDirection.Null)
+            this.direction = inputA;
+        isPlayerStill = false;
+        ResetDirection();
     }
 
     //Check if posible the input direction

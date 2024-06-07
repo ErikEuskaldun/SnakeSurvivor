@@ -15,6 +15,7 @@ public class UpgradeSelector : MonoBehaviour
 
         upgradeCards = new List<GameObject>();
         FindObjectOfType<GameManager>().LockInteraction();
+        FindObjectOfType<SnakeController>().isPlayerStill = true;
 
         bool selectedFirstSlot = false;
         foreach (UpgradeScriptable upgrade in upgradeList)

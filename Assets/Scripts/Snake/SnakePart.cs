@@ -9,7 +9,7 @@ public class SnakePart : MonoBehaviour
     public SnakePart prevPart = null;
     public bool isHead = false;
     private SnakePartSprites sprites;
-    private EDirection direction;
+    [SerializeField]private EDirection direction;
 
     private void Awake()
     {
@@ -20,17 +20,38 @@ public class SnakePart : MonoBehaviour
     {
         Vector3 oldPosition = transform.position;
 
-        if(isHead) ChangeRotation(oldPosition, position);
-
         transform.position = SnakeUtils.RoundFloat(position);
-        GetComponent<GridElement>().position = new Vector2Int(Mathf.RoundToInt(transform.position.x * SnakeUtils.TILE_MULTIPLIER), Mathf.RoundToInt(transform.position.y * SnakeUtils.TILE_MULTIPLIER));
+        GridElement gridComponent = GetComponent<GridElement>();
+        gridComponent.position = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+        
         if (nextPart != null)
-        {
             nextPart.UpdatePosition(oldPosition);
-            nextPart.ChangeRotation(oldPosition, position);
+        if (!isHead)
+        {
+            ChangeRotation(prevPart.direction);
+            GetComponent<SpriteRenderer>().sprite = ChangeSprite();
         }
-        if(!isHead) GetComponent<SpriteRenderer>().sprite = ChangeSprite();
+        else InfiniteLoopMovement();
+    }
 
+    private void InfiniteLoopMovement()
+    {
+        GridElement gridComponent = GetComponent<GridElement>();
+        Vector3 newPosition = default;
+        if (gridComponent.position.x < -9)
+            newPosition = new Vector3(9, transform.position.y);
+        else if (gridComponent.position.x > 9)
+            newPosition = new Vector3(-9, transform.position.y);
+        else if (gridComponent.position.y < -9)
+            newPosition = new Vector3(transform.position.x, 9);
+        else if (gridComponent.position.y > 9)
+            newPosition = new Vector3(transform.position.x, -9);
+
+        if (newPosition!=default)
+        {
+            transform.position = newPosition;
+            gridComponent.position = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+        }
     }
 
     public void ChangeSprite(ESnakePart part)
@@ -38,7 +59,29 @@ public class SnakePart : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = sprites.GetSprite(part);
     }
 
-    private void ChangeRotation(Vector3 oldPosition, Vector3 newPosition)
+    public void ChangeRotation(EDirection direction)
+    {
+        Quaternion newRotation = transform.rotation;
+        switch (direction)
+        {
+            case EDirection.Right:
+                newRotation = Quaternion.Euler(0, 0, 180);
+                break;
+            case EDirection.Left:
+                newRotation = Quaternion.Euler(0, 0, 0);
+                break;
+            case EDirection.Up:
+                newRotation = Quaternion.Euler(0, 0, 270);
+                break;
+            case EDirection.Down:
+                newRotation = Quaternion.Euler(0, 0, 90);
+                break;
+        }
+        this.direction = direction;
+        transform.rotation = newRotation;
+    }
+
+    private void ChangeRotationOld(Vector3 oldPosition, Vector3 newPosition)
     {
         Quaternion newRotation = transform.rotation;
 

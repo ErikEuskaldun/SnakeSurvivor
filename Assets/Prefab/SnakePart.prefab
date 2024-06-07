@@ -104,6 +104,7 @@ MonoBehaviour:
   nextPart: {fileID: 0}
   prevPart: {fileID: 0}
   isHead: 0
+  direction: 0
 --- !u!114 &-7710855958421966597
 MonoBehaviour:
   m_ObjectHideFlags: 0
