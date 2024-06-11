@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class StatsMenu : MonoBehaviour
 {
-    [SerializeField] TMP_Text txtSpeed, txtLenght, txtPoints, txtTime, txtHighScore, txtLevel, txtNextLevel;
-    [SerializeField] Slider slXp;
+    [SerializeField] TMP_Text txtSpeed, txtLenght, txtPoints, txtTime, txtHighScore, txtLevel, txtNextLevel, txtComboMultiplier;
+    [SerializeField] Slider slXp, slCombo;
 
     public void UpdateSpeed(float speed)
     {
@@ -31,6 +31,18 @@ public class StatsMenu : MonoBehaviour
     {
         txtLevel.text = level.ToString();
         txtNextLevel.text = (level + 1).ToString();
+    }
+
+    public void UpdateComboMultiplier(int multiplier)
+    {
+        txtComboMultiplier.text = "X" + multiplier;
+        txtComboMultiplier.fontSize = 45 + (multiplier * 5);
+    }
+
+    public void UpdateComboValue(float points, int maxPoints)
+    {
+        float slComboValue = points / maxPoints;
+        slCombo.value = slComboValue;
     }
 
     public void UpdateHighScore(int points)

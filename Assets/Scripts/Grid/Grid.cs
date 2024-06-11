@@ -31,6 +31,26 @@ public class Grid : MonoBehaviour
                 }
             }
         }
+
+        GenerateObstacles();
+    }
+
+    private void GenerateObstacles()
+    {
+        string[,] layout = GetComponent<GridLayout>().ReadCSV();
+        for (int x = 0; x < layout.GetLength(0); x++)
+        {
+            for (int y = 0; y < layout.GetLength(1); y++)
+            {
+                if (layout[x, y] == "1")
+                {
+                    Debug.Log((-10 + x) + "/" + (10 - y));
+                    GridElement instance = Instantiate(brick, new Vector3(-10 + x, 10 - y) * SnakeUtils.TILE_SIZE, Quaternion.identity, this.transform).GetComponent<GridElement>();
+                    instance.position = new Vector2Int(-10 + x, 10 - y);
+                }
+            }
+        }
+        Debug.Log("_ObstaclesGenerated!");
     }
 
     public Vector2Int GetRandomEmptySpace()

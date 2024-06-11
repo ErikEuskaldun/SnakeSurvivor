@@ -11,12 +11,15 @@ public class SnakeVariables : MonoBehaviour
     [SerializeField] private GameObject snakePartPrefab;
     [SerializeField] private int level = 1;
     [SerializeField] private int points = 0;
+    [SerializeField] private int comboMultiplier = 1;
+    [SerializeField] private float comboPoints = 0;
     private int maxPoints = 100;
     StatsMenu statsUI;
 
     private float LEVEL_XP_MULTIPIER = 1.5f;
 
     public int Points { get => points; }
+    public int ComboForNextLevel { get => comboMultiplier * 200; }
 
     private void Awake()
     {
@@ -24,6 +27,10 @@ public class SnakeVariables : MonoBehaviour
         if (!PlayerPrefs.HasKey("HighScore"))
             PlayerPrefs.SetInt("HighScore", 0);
         UpdateUIAll();
+    }
+    private void Update()
+    {
+        DecreaseCombo();
     }
 
     public void StartingLenght(int length)
@@ -88,7 +95,8 @@ public class SnakeVariables : MonoBehaviour
 
     public void IncreasePoints(int value) //points variable controller
     {
-        points += value;
+        points += value * comboMultiplier;
+        IncreaseCombo(value);
 
         if(points>=maxPoints)
         {
@@ -98,8 +106,39 @@ public class SnakeVariables : MonoBehaviour
             FindObjectOfType<UpgradesManager>().UpgradeSelector();
             statsUI.UpdateLevel(level);
         }
-
         statsUI.UpdatePoints(points, maxPoints);
+    }
+
+    private void IncreaseCombo(int value)
+    {
+        comboPoints += value;
+        if(comboPoints >= ComboForNextLevel)
+        {
+            comboPoints -= ComboForNextLevel;
+            comboMultiplier++;
+            statsUI.UpdateComboMultiplier(comboMultiplier);
+        }
+        statsUI.UpdateComboValue(comboPoints, ComboForNextLevel);
+    }
+
+    private void DecreaseCombo()
+    {
+        if(comboMultiplier == 1 && comboPoints <= 0)
+            return;
+
+        comboPoints -= Time.deltaTime * (comboMultiplier * 10);
+        if (comboPoints < 0)
+        {
+            if(comboMultiplier == 1)
+                comboPoints = 0;
+            else
+            {
+                comboMultiplier--;
+                comboPoints = ComboForNextLevel - comboPoints;
+                statsUI.UpdateComboMultiplier(comboMultiplier);
+            }
+        }
+        statsUI.UpdateComboValue(comboPoints, ComboForNextLevel);
     }
 
     public void IncreaseSpeed(float value)
@@ -122,5 +161,7 @@ public class SnakeVariables : MonoBehaviour
         statsUI.UpdateLenght(length);
         statsUI.UpdateHighScore(PlayerPrefs.GetInt("HighScore"));
         statsUI.UpdateLevel(level);
+        statsUI.UpdateComboValue(comboPoints, ComboForNextLevel);
+        statsUI.UpdateComboMultiplier(comboMultiplier);
     }
 }
