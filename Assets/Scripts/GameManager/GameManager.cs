@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject GameWonPopUp;
     [SerializeField] Button GameWonDefaultButton;
     public bool isLockedMenuing = false;
-    public int timer = 300;
+    public int timer = 0;
     [SerializeField] private StatsMenu statsMenu;
     [SerializeField] private UpgradesManager upgradesController;
 
@@ -32,11 +32,11 @@ public class GameManager : MonoBehaviour
         if (second > 1f)
         {
             second -= 1f;
-            timer -= 1;
+            timer++;
             statsMenu.UpdateTime(timer);
         }
-        if (timer <= 0)
-            GameWon();
+        /*if (timer <= 0)
+            GameWon();*///TODO: WIN CONDITION
     }
 
     public void GameOver()

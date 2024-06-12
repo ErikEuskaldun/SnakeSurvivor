@@ -5,21 +5,21 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
     public List<GridElement> gridElements = new List<GridElement>();
-    public int startY, endY, startX, endX;
+    public int xLength, yLength;
     public GameObject floor, brick;
     public Color colorA, colorB;
     void Start()
     {
-        GenerateGrid(startY, endY, startX, endX);
+        GenerateGrid(xLength, yLength);
     }
 
-    public void GenerateGrid(int startY, int endY, int startX, int endX)
+    public void GenerateGrid(int xLength, int yLength)
     {
-        for (int y = startY; y < endY + 1; y++)
+        for (int y = 0; y < yLength; y++)
         {
-            for (int x = startX; x < endX + 1; x++)
+            for (int x = 0; x < xLength; x++)
             {
-                if (y == startY || y == endY || x == startX || x == endX)
+                if (y == 0 || y == yLength-1 || x == 0 || x == xLength-1)
                 {
                     GridElement instance = Instantiate(brick, new Vector3(x, y) * SnakeUtils.TILE_SIZE, Quaternion.identity, this.transform).GetComponent<GridElement>();
                     instance.position = new Vector2Int(x, y);
@@ -31,12 +31,12 @@ public class Grid : MonoBehaviour
                 }
             }
         }
-
         GenerateObstacles();
     }
 
     private void GenerateObstacles()
     {
+        int yInvert = yLength - 1;
         string[,] layout = GetComponent<GridLayout>().ReadCSV();
         for (int x = 0; x < layout.GetLength(0); x++)
         {
@@ -44,9 +44,9 @@ public class Grid : MonoBehaviour
             {
                 if (layout[x, y] == "1")
                 {
-                    Debug.Log((-10 + x) + "/" + (10 - y));
-                    GridElement instance = Instantiate(brick, new Vector3(-10 + x, 10 - y) * SnakeUtils.TILE_SIZE, Quaternion.identity, this.transform).GetComponent<GridElement>();
-                    instance.position = new Vector2Int(-10 + x, 10 - y);
+                    Debug.Log((x) + "/" + (yInvert - y));
+                    GridElement instance = Instantiate(brick, new Vector3(x, yInvert - y) * SnakeUtils.TILE_SIZE, Quaternion.identity, this.transform).GetComponent<GridElement>();
+                    instance.position = new Vector2Int(x, yInvert - y);
                 }
             }
         }
@@ -60,8 +60,8 @@ public class Grid : MonoBehaviour
         int x, y;
         do
         {
-            x = Random.Range(startX, endX);
-            y = Random.Range(startY, endY);
+            x = Random.Range(0, xLength);
+            y = Random.Range(0, yLength);
             validPosition = true;
             foreach (GridElement element in gridElements)
             {

@@ -14,6 +14,8 @@ public class SnakePart : MonoBehaviour
     private void Awake()
     {
         sprites = GetComponent<SnakePartSprites>();
+        grid = FindObjectOfType<Grid>();
+        gridComponent = GetComponent<GridElement>();
     }
 
     public void UpdatePosition(Vector3 position) //update to new position and child have now old position
@@ -34,18 +36,19 @@ public class SnakePart : MonoBehaviour
         else InfiniteLoopMovement();
     }
 
+    Grid grid;
+    GridElement gridComponent;
     private void InfiniteLoopMovement()
     {
-        GridElement gridComponent = GetComponent<GridElement>();
         Vector3 newPosition = default;
-        if (gridComponent.position.x < -9)
-            newPosition = new Vector3(9, transform.position.y);
-        else if (gridComponent.position.x > 9)
-            newPosition = new Vector3(-9, transform.position.y);
-        else if (gridComponent.position.y < -9)
-            newPosition = new Vector3(transform.position.x, 9);
-        else if (gridComponent.position.y > 9)
-            newPosition = new Vector3(transform.position.x, -9);
+        if (gridComponent.position.x < 1)
+            newPosition = new Vector3(grid.xLength-2, transform.position.y);
+        else if (gridComponent.position.x > grid.xLength-2)
+            newPosition = new Vector3(1, transform.position.y);
+        else if (gridComponent.position.y < 1)
+            newPosition = new Vector3(transform.position.x, grid.yLength-2);
+        else if (gridComponent.position.y > grid.yLength-2)
+            newPosition = new Vector3(transform.position.x, 1);
 
         if (newPosition!=default)
         {
@@ -81,7 +84,7 @@ public class SnakePart : MonoBehaviour
         transform.rotation = newRotation;
     }
 
-    private void ChangeRotationOld(Vector3 oldPosition, Vector3 newPosition)
+    /*private void ChangeRotationOld(Vector3 oldPosition, Vector3 newPosition)
     {
         Quaternion newRotation = transform.rotation;
 
@@ -112,7 +115,7 @@ public class SnakePart : MonoBehaviour
             }
         }
         transform.rotation = newRotation;
-    }
+    }*/
 
     private Sprite ChangeSprite()
     {
