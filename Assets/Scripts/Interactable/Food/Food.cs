@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Food : MonoBehaviour
+public class Food : MonoBehaviour, IInteractable
 {
     public FoodScriptable scriptable;
     public UnityEvent<Vector2Int> OnDespawnEvent;

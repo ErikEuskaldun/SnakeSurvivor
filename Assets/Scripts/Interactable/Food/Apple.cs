@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Apple : Food, IInteractable
+public class Apple : Food
 {
     [SerializeField] GameObject rottenApple;
 

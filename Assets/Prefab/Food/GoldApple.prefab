@@ -181,4 +181,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
   position: {x: 0, y: 0}
-  type: 0
+  type: 4
