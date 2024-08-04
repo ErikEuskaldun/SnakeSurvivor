@@ -4,15 +4,24 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIHighlightedSelect : MonoBehaviour, IPointerEnterHandler
+public class UIHighlightedSelect : MonoBehaviour, IPointerEnterHandler, ISelectHandler
 {
-    Button button;
+    Selectable ui;
+    MenuController menuController;
     private void Start()
     {
-        button = this.GetComponent<Button>();
+        ui = this.GetComponent<Selectable>();
+        menuController = GetComponentInParent<MenuController>();
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        button.Select();
+        ui.Select();
+        
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        if (menuController)
+            menuController.Lastselected(ui);
     }
 }

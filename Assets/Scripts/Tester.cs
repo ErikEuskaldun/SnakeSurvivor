@@ -16,7 +16,7 @@ public class Tester : MonoBehaviour
     {
         int r = Random.Range(0, perfabs.Count);
         Food f = Instantiate(perfabs[r]).GetComponent<Food>();
-        f.Instantiate(foods[r]);
+        //f.Instantiate(foods[r]);
         f.SetRandomPosition();
     }
 }

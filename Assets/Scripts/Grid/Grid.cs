@@ -44,13 +44,11 @@ public class Grid : MonoBehaviour
             {
                 if (layout[x, y] == "1")
                 {
-                    Debug.Log((x) + "/" + (yInvert - y));
                     GridElement instance = Instantiate(brick, new Vector3(x, yInvert - y) * SnakeUtils.TILE_SIZE, Quaternion.identity, this.transform).GetComponent<GridElement>();
                     instance.position = new Vector2Int(x, yInvert - y);
                 }
             }
         }
-        Debug.Log("_ObstaclesGenerated!");
     }
 
     public Vector2Int GetRandomEmptySpace()

@@ -9,17 +9,21 @@ public class SnakeVariables : MonoBehaviour
     public int length = 1;
     public List<SnakePart> snakeParts = new List<SnakePart>();
     [SerializeField] private GameObject snakePartPrefab;
-    [SerializeField] private int level = 1;
     [SerializeField] private int points = 0;
+    [SerializeField] private int level = 1;
+    [SerializeField] private int expereince = 0;
     [SerializeField] private int comboMultiplier = 1;
-    [SerializeField] private float comboPoints = 0;
-    private int maxPoints = 100;
+    [SerializeField] private float comboValue = 0;
+    private int maxExperience = 100;
     StatsMenu statsUI;
+
+    private GameVariables gameVariables;
 
     private float LEVEL_XP_MULTIPIER = 1.5f;
 
     public int Points { get => points; }
     public int ComboForNextLevel { get => comboMultiplier * 200; }
+    public int ComboMultiplier { get => comboMultiplier; }
 
     private void Awake()
     {
@@ -28,6 +32,13 @@ public class SnakeVariables : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", 0);
         UpdateUIAll();
     }
+
+    private void Start()
+    {
+        gameVariables = FindObjectOfType<GameVariables>();
+        
+    }
+
     private void Update()
     {
         DecreaseCombo();
@@ -43,10 +54,8 @@ public class SnakeVariables : MonoBehaviour
             this.length++;
             SnakePart lastPart = snakeParts[snakeParts.Count - 1];
             SnakePart newPart = Instantiate(snakePartPrefab, lastPart.transform.position + Vector3.right * SnakeUtils.TILE_SIZE, Quaternion.identity, this.transform).GetComponent<SnakePart>();
-            lastPart.nextPart = newPart; //old last part is dad of new part
-            newPart.prevPart = lastPart;
-            newPart.transform.position = lastPart.transform.position + Vector3.right * SnakeUtils.TILE_SIZE; //new part position is last parts
-            
+            newPart.InstantiatePart(lastPart);
+
             snakeParts.Add(newPart);
         }
         SnakePart tail = snakeParts[snakeParts.Count - 1];
@@ -60,10 +69,8 @@ public class SnakeVariables : MonoBehaviour
         this.length++;
         SnakePart lastPart = snakeParts[snakeParts.Count - 1];
         SnakePart newPart = Instantiate(snakePartPrefab, lastPart.transform.position, Quaternion.identity, this.transform).GetComponent<SnakePart>();
-        lastPart.nextPart = newPart; //old last part is dad of new part
-        newPart.prevPart = lastPart;
-        newPart.UpdatePosition(lastPart.transform.position); //new part position is last parts
-        newPart.transform.rotation = lastPart.transform.rotation;
+        newPart.InstantiatePart(lastPart);
+
         snakeParts.Add(newPart);
 
         statsUI.UpdateLenght(length);
@@ -95,50 +102,51 @@ public class SnakeVariables : MonoBehaviour
 
     public void IncreasePoints(int value) //points variable controller
     {
-        points += value * comboMultiplier;
+        expereince += Mathf.RoundToInt(value * comboMultiplier * gameVariables.pointMultiplier);
+        points += expereince;
         IncreaseCombo(value);
 
-        if(points>=maxPoints)
+        if(expereince >= maxExperience)
         {
-            points -= maxPoints;
+            expereince -= maxExperience;
             level++;
-            maxPoints = Mathf.RoundToInt(maxPoints * LEVEL_XP_MULTIPIER);
+            maxExperience = Mathf.RoundToInt(maxExperience * LEVEL_XP_MULTIPIER);
             FindObjectOfType<UpgradesManager>().UpgradeSelector();
             statsUI.UpdateLevel(level);
         }
-        statsUI.UpdatePoints(points, maxPoints);
+        statsUI.UpdatePoints(expereince, maxExperience, points);
     }
 
     private void IncreaseCombo(int value)
     {
-        comboPoints += value;
-        if(comboPoints >= ComboForNextLevel)
+        comboValue += value;
+        if(comboValue >= ComboForNextLevel)
         {
-            comboPoints -= ComboForNextLevel;
+            comboValue -= ComboForNextLevel;
             comboMultiplier++;
             statsUI.UpdateComboMultiplier(comboMultiplier);
         }
-        statsUI.UpdateComboValue(comboPoints, ComboForNextLevel);
+        statsUI.UpdateComboValue(comboValue, ComboForNextLevel);
     }
 
     private void DecreaseCombo()
     {
-        if(comboMultiplier == 1 && comboPoints <= 0)
+        if(comboMultiplier == 1 && comboValue <= 0)
             return;
 
-        comboPoints -= Time.deltaTime * (comboMultiplier * 10);
-        if (comboPoints < 0)
+        comboValue -= Time.deltaTime * (comboMultiplier * 10);
+        if (comboValue < 0)
         {
             if(comboMultiplier == 1)
-                comboPoints = 0;
+                comboValue = 0;
             else
             {
                 comboMultiplier--;
-                comboPoints = ComboForNextLevel - comboPoints;
+                comboValue = ComboForNextLevel - comboValue;
                 statsUI.UpdateComboMultiplier(comboMultiplier);
             }
         }
-        statsUI.UpdateComboValue(comboPoints, ComboForNextLevel);
+        statsUI.UpdateComboValue(comboValue, ComboForNextLevel);
     }
 
     public void IncreaseSpeed(float value)
@@ -156,12 +164,12 @@ public class SnakeVariables : MonoBehaviour
 
     public void UpdateUIAll()
     {
-        statsUI.UpdatePoints(points, maxPoints);
+        statsUI.UpdatePoints(expereince, maxExperience, points);
         statsUI.UpdateSpeed(speed);
         statsUI.UpdateLenght(length);
         statsUI.UpdateHighScore(PlayerPrefs.GetInt("HighScore"));
         statsUI.UpdateLevel(level);
-        statsUI.UpdateComboValue(comboPoints, ComboForNextLevel);
+        statsUI.UpdateComboValue(comboValue, ComboForNextLevel);
         statsUI.UpdateComboMultiplier(comboMultiplier);
     }
 }

@@ -11,7 +11,7 @@ public class UpgradeMenu : MonoBehaviour
     
     public void ChangeUpgradeInfo(Upgrade upgrade, int position)
     {
-        UpgradeScriptable scriptable = upgrade.upgradeInfoScriptable;
+        UpgradeScriptable scriptable = upgrade.scriptable;
 
         ChangeImage(scriptable, position);
         ChangeLevel(upgrade, scriptable, position);

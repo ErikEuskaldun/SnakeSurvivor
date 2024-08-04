@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.UI;
+using System.Globalization;
 
 public class StatsMenu : MonoBehaviour
 {
@@ -20,10 +21,11 @@ public class StatsMenu : MonoBehaviour
         txtLenght.text = "Lenght: " + lenght;
     }
 
-    public void UpdatePoints(int points, int maxPoints)
+    public void UpdatePoints(int experience, int maxExpereince, int points)
     {
-        txtPoints.text = "Points: " + points;
-        float slXpValue = (float)points / maxPoints;
+        string sPoints = points.ToString("#,0", SnakeUtils.GetThousandWithSpaceFormat());
+        txtPoints.text = "Points: " + sPoints;
+        float slXpValue = (float)experience / maxExpereince;
         slXp.value = slXpValue;
     }
 
@@ -47,12 +49,13 @@ public class StatsMenu : MonoBehaviour
 
     public void UpdateHighScore(int points)
     {
-        txtHighScore.text = "High Score: " + points;
+        txtHighScore.text = "High Score: " + points.ToString("#,0", SnakeUtils.GetThousandWithSpaceFormat());
     }
 
     public void UpdateTime(int time)
     {
         TimeSpan t = TimeSpan.FromSeconds(time);
-        txtTime.text = t.ToString("m':'ss");
+        //txtTime.text = time.ToString();
+        txtTime.text = t.ToString("mm':'ss");
     }
 }

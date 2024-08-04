@@ -1,12 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 public static class SnakeUtils
 {
     public static float TILE_SIZE = 1f;
     public static float TILE_MULTIPLIER = 1f;
+
+    public static NumberFormatInfo GetThousandWithSpaceFormat()
+    {
+        NumberFormatInfo format = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
+        format.NumberGroupSeparator = " ";
+        return format;
+    }
 
     public static float RoundFloat(float value)
     {
@@ -16,7 +24,6 @@ public static class SnakeUtils
 
     public static Vector3 RoundFloat(Vector3 position)
     {
-
         float x = RoundFloat(position.x);
         float y = RoundFloat(position.y);
         return new Vector3(x,y);

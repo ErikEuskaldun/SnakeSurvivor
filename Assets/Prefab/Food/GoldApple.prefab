@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4363657301055373708}
   - component: {fileID: 1869241318530361370}
   m_Layer: 0
-  m_Name: RottenApple
+  m_Name: GoldApple
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: be9fbefb34cdbdf4eba2fc09069da0e1, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 520b93f3323d0b24a8236dd56a66fb8d, type: 3}
+  m_Color: {r: 1, g: 0.7406687, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd9a90cf93642b42a2b3c91b5e0c2ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptable: {fileID: 11400000, guid: 987fa5ae9d86ae341b14ba72144df2e0, type: 2}
+  scriptable: {fileID: 11400000, guid: 75869c779543a754fb669b5b137ea5ff, type: 2}
   OnDespawnEvent:
     m_PersistentCalls:
       m_Calls: []

@@ -22,7 +22,6 @@ public class GridLayout : MonoBehaviour
                 splitXY[j,i] = splitX[j];
             }
         }
-        Debug.Log("");
         return splitXY;
     }
 }

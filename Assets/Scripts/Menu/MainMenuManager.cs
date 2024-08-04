@@ -5,12 +5,6 @@ using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [SerializeField] private Button defaultSelcetedButton;
-    void Start()
-    {
-        defaultSelcetedButton.Select();
-    }
-
     public void Quit()
     {
         Application.Quit();

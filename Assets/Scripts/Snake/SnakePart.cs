@@ -9,13 +9,24 @@ public class SnakePart : MonoBehaviour
     public SnakePart prevPart = null;
     public bool isHead = false;
     private SnakePartSprites sprites;
-    [SerializeField]private EDirection direction;
+    public EDirection direction;
 
     private void Awake()
     {
         sprites = GetComponent<SnakePartSprites>();
         grid = FindObjectOfType<Grid>();
         gridComponent = GetComponent<GridElement>();
+    }
+
+    public void InstantiatePart(SnakePart previousPart)
+    {
+        previousPart.nextPart = this;
+        prevPart = previousPart;
+        if (previousPart.isHead)
+            this.transform.position = previousPart.transform.position + Vector3.right * SnakeUtils.TILE_SIZE; //new part position is last parts
+        else
+            UpdatePosition(previousPart.transform.position);
+        direction = previousPart.direction;
     }
 
     public void UpdatePosition(Vector3 position) //update to new position and child have now old position
