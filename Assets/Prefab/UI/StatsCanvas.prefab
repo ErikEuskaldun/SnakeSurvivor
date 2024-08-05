@@ -385,3 +385,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txtFPS: {fileID: 1158607515069916428}
+  txtDebug: {fileID: 6421308569993845112}

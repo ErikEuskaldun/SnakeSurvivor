@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        GameVariables.SetDefaultVariables();
         statsMenu.UpdateTime(timer);
     }
 

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15530a78f72fd346882315426cc6b62, type: 3}
+  m_Name: Orange Color 3
+  m_EditorClassIdentifier: 
+  upgradeName: Orange Color
+  level: 3
+  description: +20% Food Life Time
+  image: {fileID: 21300000, guid: 5e0c1f2c8d5212e4f981c05f42850dda, type: 3}
+  spawnTime: 20
+  food:
+  - food: {fileID: 7839497630658632422, guid: 65a0e795c6ef624488eb30ec58bf23b3, type: 3}
+    rate: 100
+  evolution: {fileID: 11400000, guid: e20dee86fee055241ac99288e5b73a84, type: 2}

@@ -6,7 +6,7 @@ public class UpgradeAppleTree : Upgrade
 {
     private void Start()
     {
-        StartTimer(scriptable.spawnTime);
+        Inicialice();
         XpBoostEffect();
     }
 
@@ -31,6 +31,6 @@ public class UpgradeAppleTree : Upgrade
 
     private void BoostXP(float value)
     {
-        FindObjectOfType<GameVariables>().pointMultiplier += value;
+        GameVariables.pointMultiplier += value;
     }
 }

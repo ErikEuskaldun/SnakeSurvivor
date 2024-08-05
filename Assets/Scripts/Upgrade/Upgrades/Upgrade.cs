@@ -11,7 +11,7 @@ public class Upgrade : MonoBehaviour
 
     protected float time = 0f;
 
-    private void Start()
+    protected void Inicialice()
     {
         StartTimer(scriptable.spawnTime);
     }
@@ -45,16 +45,19 @@ public class Upgrade : MonoBehaviour
 
     public void StartTimer(float foodTime)
     {
-        time = foodTime - 0.1f;
+        nextSpawn = foodTime / GameVariables.spawnrateMultiplier;
+        time = nextSpawn - 0.1f;
     }
 
+    private float nextSpawn;
     public virtual void UpgradeLoop()
     {
         time += Time.deltaTime;
-        if(scriptable.spawnTime < time)
+        if(nextSpawn < time)
         {
             time = 0;
             SpawnRandomFood();
+            nextSpawn = scriptable.spawnTime / GameVariables.spawnrateMultiplier;
         }
     }
 

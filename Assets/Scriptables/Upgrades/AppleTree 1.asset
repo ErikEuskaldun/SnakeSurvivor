@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c15530a78f72fd346882315426cc6b62, type: 3}
-  m_Name: (4) AppleTree
+  m_Name: AppleTree 1
   m_EditorClassIdentifier: 
   upgradeName: Apple Tree
-  level: 4
-  description: +50% Food XP
+  level: 1
+  description: +15% Food XP
   image: {fileID: 21300000, guid: 028974b5d6f0957418df793000098476, type: 3}
   spawnTime: 20
   food:
-  - food: {fileID: 7839497630658632422, guid: dfe96705090d7614bbb9e79dcbd0d065, type: 3}
+  - food: {fileID: 7839497630658632422, guid: 642efbabdc0ac9b4bbf99b21c932bdb8, type: 3}
     rate: 100
-  evolution: {fileID: 0}
+  evolution: {fileID: 11400000, guid: 843ba8ee6fd6b4d449c911ffbe269a72, type: 2}

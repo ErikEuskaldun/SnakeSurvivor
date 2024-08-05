@@ -17,8 +17,6 @@ public class SnakeVariables : MonoBehaviour
     private int maxExperience = 100;
     StatsMenu statsUI;
 
-    private GameVariables gameVariables;
-
     private float LEVEL_XP_MULTIPIER = 1.5f;
 
     public int Points { get => points; }
@@ -31,12 +29,6 @@ public class SnakeVariables : MonoBehaviour
         if (!PlayerPrefs.HasKey("HighScore"))
             PlayerPrefs.SetInt("HighScore", 0);
         UpdateUIAll();
-    }
-
-    private void Start()
-    {
-        gameVariables = FindObjectOfType<GameVariables>();
-        
     }
 
     private void Update()
@@ -102,7 +94,7 @@ public class SnakeVariables : MonoBehaviour
 
     public void IncreasePoints(int value) //points variable controller
     {
-        expereince += Mathf.RoundToInt(value * comboMultiplier * gameVariables.pointMultiplier);
+        expereince += Mathf.RoundToInt(value * comboMultiplier * GameVariables.pointMultiplier);
         points += expereince;
         IncreaseCombo(value);
 

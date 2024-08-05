@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Food : MonoBehaviour, IInteractable
+public class Food : Interactable
 {
     public FoodScriptable scriptable;
     public UnityEvent<Vector2Int> OnDespawnEvent;
@@ -28,14 +28,14 @@ public class Food : MonoBehaviour, IInteractable
 
     protected virtual IEnumerator Despawn()
     {
-        yield return new WaitForSeconds(scriptable.despawnTime);
+        yield return new WaitForSeconds(scriptable.despawnTime * GameVariables.foodLifeTimeMultiplier);
 
         OnDespawnEvent.Invoke(GetComponent<GridElement>().position);
 
         Destroy(this.gameObject);
     }
 
-    public virtual void OnInteract()
+    public override void OnInteract()
     {
         GameObject snake = GameObject.FindGameObjectWithTag("SnakeController");
         SnakeVariables snakeVariables = snake.GetComponent<SnakeVariables>();

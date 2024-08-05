@@ -8,8 +8,7 @@ public class SnakeCollider : MonoBehaviour
     {
         if(collision.tag=="Interactable")
         {
-            IInteractable interactable = collision.GetComponent(typeof(IInteractable)) as IInteractable;
-            interactable.OnInteract();
+            collision.GetComponent<Interactable>().OnInteract();
         }
     }
 }
