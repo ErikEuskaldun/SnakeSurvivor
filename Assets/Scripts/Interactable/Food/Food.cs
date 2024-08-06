@@ -39,12 +39,8 @@ public class Food : Interactable
     {
         GameObject snake = GameObject.FindGameObjectWithTag("SnakeController");
         SnakeVariables snakeVariables = snake.GetComponent<SnakeVariables>();
-
-        snakeVariables.IncreasePoints(scriptable.points);
-        snakeVariables.IncreaseLenght(scriptable.tailLength);
+        snakeVariables.IncreasePointsAndTailWithFX(this.transform.position, scriptable.points, scriptable.tailLength);
         //snakeVariables.IncreaseSpeed(scriptable.speed);
-        int realPoints = scriptable.points * FindObjectOfType<SnakeVariables>().ComboMultiplier;
-        FindObjectOfType<GameUIController>().InstantiatePointFX(this.transform.position, realPoints);
 
         OnInteractEvent.Invoke();
 

@@ -53,7 +53,8 @@ public class Upgrade : MonoBehaviour
     public virtual void UpgradeLoop()
     {
         time += Time.deltaTime;
-        if(nextSpawn < time)
+        Debug.Log(scriptable.upgradeName + ":" + nextSpawn + "/" + time);
+        if (nextSpawn < time)
         {
             time = 0;
             SpawnRandomFood();

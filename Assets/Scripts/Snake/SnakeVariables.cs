@@ -11,7 +11,7 @@ public class SnakeVariables : MonoBehaviour
     [SerializeField] private GameObject snakePartPrefab;
     [SerializeField] private int points = 0;
     [SerializeField] private int level = 1;
-    [SerializeField] private int expereince = 0;
+    [SerializeField] private int experience = 0;
     [SerializeField] private int comboMultiplier = 1;
     [SerializeField] private float comboValue = 0;
     private int maxExperience = 100;
@@ -92,21 +92,30 @@ public class SnakeVariables : MonoBehaviour
         statsUI.UpdateLenght(length);
     }
 
-    public void IncreasePoints(int value) //points variable controller
+    public void IncreasePointsAndTailWithFX(Vector3 fxPosition, int points, int tailLenght)
     {
-        expereince += Mathf.RoundToInt(value * comboMultiplier * GameVariables.pointMultiplier);
-        points += expereince;
+        int realPoints = IncreasePoints(points);
+        IncreaseLenght(tailLenght);
+        FindObjectOfType<GameUIController>().InstantiatePointFX(fxPosition, realPoints);
+    }
+
+    public int IncreasePoints(int value) //points variable controller
+    {
+        int realPoints = Mathf.RoundToInt(value * comboMultiplier * GameVariables.pointMultiplier);
+        experience += realPoints;
+        points += realPoints;
         IncreaseCombo(value);
 
-        if(expereince >= maxExperience)
+        if(experience >= maxExperience)
         {
-            expereince -= maxExperience;
+            experience -= maxExperience;
             level++;
             maxExperience = Mathf.RoundToInt(maxExperience * LEVEL_XP_MULTIPIER);
             FindObjectOfType<UpgradesManager>().UpgradeSelector();
             statsUI.UpdateLevel(level);
         }
-        statsUI.UpdatePoints(expereince, maxExperience, points);
+        statsUI.UpdatePoints(experience, maxExperience, points);
+        return realPoints;
     }
 
     private void IncreaseCombo(int value)
@@ -156,7 +165,7 @@ public class SnakeVariables : MonoBehaviour
 
     public void UpdateUIAll()
     {
-        statsUI.UpdatePoints(expereince, maxExperience, points);
+        statsUI.UpdatePoints(experience, maxExperience, points);
         statsUI.UpdateSpeed(speed);
         statsUI.UpdateLenght(length);
         statsUI.UpdateHighScore(PlayerPrefs.GetInt("HighScore"));
