@@ -13,32 +13,33 @@ public class StatsMenu : MonoBehaviour
 
     public void UpdateSpeed(float speed)
     {
-        txtSpeed.text = "Speed: " + SnakeUtils.RoundFloat(speed);
+        txtSpeed.text = "SPD: " + SnakeUtils.RoundFloat(speed);
     }
 
     public void UpdateLenght(int lenght)
     {
-        txtLenght.text = "Lenght: " + lenght;
+        txtLenght.text = "LNG: " + lenght;
     }
 
     public void UpdatePoints(int experience, int maxExpereince, int points)
     {
-        string sPoints = points.ToString("#,0", SnakeUtils.GetThousandWithSpaceFormat());
-        txtPoints.text = "Points: " + sPoints;
+        //string sPoints = points.ToString("#,0", SnakeUtils.GetThousandWithSpaceFormat());
+        //txtPoints.text = sPoints;
+        txtPoints.text = points.ToString();
         float slXpValue = (float)experience / maxExpereince;
         slXp.value = slXpValue;
     }
 
     public void UpdateLevel(int level)
     {
-        txtLevel.text = level.ToString();
-        txtNextLevel.text = (level + 1).ToString();
+        txtLevel.text = level.ToString("00");
+        txtNextLevel.text = (level + 1).ToString("00");
     }
 
     public void UpdateComboMultiplier(int multiplier)
     {
         txtComboMultiplier.text = "X" + multiplier;
-        txtComboMultiplier.fontSize = 45 + (multiplier * 5);
+        //txtComboMultiplier.fontSize = 45 + (multiplier * 5);
     }
 
     public void UpdateComboValue(float points, int maxPoints)
@@ -49,7 +50,8 @@ public class StatsMenu : MonoBehaviour
 
     public void UpdateHighScore(int points)
     {
-        txtHighScore.text = "High Score: " + points.ToString("#,0", SnakeUtils.GetThousandWithSpaceFormat());
+        //txtHighScore.text = "High Score: " + points.ToString("#,0", SnakeUtils.GetThousandWithSpaceFormat());
+        txtHighScore.text = points.ToString();
     }
 
     public void UpdateTime(int time)

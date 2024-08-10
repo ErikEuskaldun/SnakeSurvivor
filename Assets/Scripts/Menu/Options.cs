@@ -73,6 +73,12 @@ public class Options : MonoBehaviour
         Screen.fullScreenMode = isFullScreen ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
     }
 
+    //TEST
+    public void Test_ClearHighScore()
+    {
+        PlayerPrefs.SetInt("HighScore", 0);
+    }
+
     public void SetVSync(bool isVSyncActivated)
     {
         int vSyncMode = isVSyncActivated ? 1 : 0;

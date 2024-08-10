@@ -53,7 +53,6 @@ public class Upgrade : MonoBehaviour
     public virtual void UpgradeLoop()
     {
         time += Time.deltaTime;
-        Debug.Log(scriptable.upgradeName + ":" + nextSpawn + "/" + time);
         if (nextSpawn < time)
         {
             time = 0;

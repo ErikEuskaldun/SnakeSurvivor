@@ -33,11 +33,11 @@ public class GameManager : MonoBehaviour
         if (second > 1f)
         {
             second -= 1f;
-            timer++;
+            timer--;
             statsMenu.UpdateTime(timer);
         }
-        /*if (timer <= 0)
-            GameWon();*///TODO: WIN CONDITION
+        if (timer <= 0 && !isLockedMenuing)
+            GameWon();
     }
 
     public void GameOver()
