@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2211276587878225565}
   - component: {fileID: 8579001069161755561}
-  - component: {fileID: 5086934371035771708}
   - component: {fileID: 1562239295548141939}
+  - component: {fileID: 776084065576224104}
   - component: {fileID: 4363657301055373708}
-  - component: {fileID: 1869241318530361370}
   m_Layer: 0
   m_Name: RottenApple
   m_TagString: Interactable
@@ -88,24 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5086934371035771708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7839497630658632422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b5a451a953a55342a53780aaebb7467, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnDespawnEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnInteractEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1562239295548141939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +101,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
   position: {x: 0, y: 0}
-  type: 2
+  type: 4
+--- !u!114 &776084065576224104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7839497630658632422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cd9a90cf93642b42a2b3c91b5e0c2ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptable: {fileID: 11400000, guid: 987fa5ae9d86ae341b14ba72144df2e0, type: 2}
+  OnDespawnEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInteractEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &4363657301055373708
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -166,18 +166,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.1}
   m_EdgeRadius: 0
---- !u!114 &1869241318530361370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7839497630658632422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afd3c27ec3c53204895e90e6322cf406, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  position: {x: 0, y: 0}
-  type: 0

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15530a78f72fd346882315426cc6b62, type: 3}
+  m_Name: AppleTree 1
+  m_EditorClassIdentifier: 
+  upgradeName: Apple Tree
+  level: 1
+  description: +15% Food XP
+  image: {fileID: 21300000, guid: 028974b5d6f0957418df793000098476, type: 3}
+  spawnTime: 20
+  food:
+  - food: {fileID: 7839497630658632422, guid: 642efbabdc0ac9b4bbf99b21c932bdb8, type: 3}
+    rate: 100
+  evolution: {fileID: 11400000, guid: 843ba8ee6fd6b4d449c911ffbe269a72, type: 2}

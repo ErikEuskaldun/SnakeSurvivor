@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Brick : MonoBehaviour, IInteractable
+public class Brick : Interactable
 {
-    public void OnInteract()
+    public override void OnInteract()
     {
         GameObject snake = GameObject.FindGameObjectWithTag("SnakeController");
         snake.GetComponent<SnakeVariables>().GameOver();

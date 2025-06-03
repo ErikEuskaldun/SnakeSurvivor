@@ -11,12 +11,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject GameWonPopUp;
     [SerializeField] Button GameWonDefaultButton;
     public bool isLockedMenuing = false;
-    public int timer = 300;
+    public int timer = 0;
     [SerializeField] private StatsMenu statsMenu;
     [SerializeField] private UpgradesManager upgradesController;
 
     private void Start()
     {
+        GameVariables.SetDefaultVariables();
         statsMenu.UpdateTime(timer);
     }
 
@@ -32,10 +33,10 @@ public class GameManager : MonoBehaviour
         if (second > 1f)
         {
             second -= 1f;
-            timer -= 1;
+            timer--;
             statsMenu.UpdateTime(timer);
         }
-        if (timer <= 0)
+        if (timer <= 0 && !isLockedMenuing)
             GameWon();
     }
 

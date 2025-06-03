@@ -93,13 +93,13 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 40
+    value: 84
   intensityX:
     overrideState: 1
-    value: 1
+    value: 0.855
   intensityY:
     overrideState: 1
-    value: 0.8
+    value: 0.775
   centerX:
     overrideState: 0
     value: 0

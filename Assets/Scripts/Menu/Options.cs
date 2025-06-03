@@ -2,68 +2,87 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Options : MonoBehaviour
 {
-    Resolution[] resolutions;
+    //Resolution
+    private List<Resolution> resolutions;
+    private int currentResolutionIndex = 0;
+
     public TMP_Dropdown ddResolution;
+    public Toggle tgFullScreen, tgVSync;
+    public TMP_Text txtDebug;
     private void Start()
     {
-        resolutions = Screen.resolutions;
+        GenerateResolutions();
+        SetDefaultOptions();
+    }
+    private void Update()
+    {
+        txtDebug.text = "Debug: " + PlayerPrefs.GetInt("VSync");
+    }
+
+    private void SetDefaultOptions()
+    {
+        //FullScreen
+        tgFullScreen.isOn = Screen.fullScreenMode == FullScreenMode.FullScreenWindow ? true : false;
+        //VSync
+        if (!PlayerPrefs.HasKey("VSync"))
+            PlayerPrefs.SetInt("VSync", 1);
+        tgVSync.isOn = PlayerPrefs.GetInt("VSync") == 1 ? true : false;
+        QualitySettings.vSyncCount = PlayerPrefs.GetInt("VSync");
+    }
+
+    private void GenerateResolutions()
+    {
+        Resolution[] fullResolutionList = Screen.resolutions;
+        resolutions = new List<Resolution>();
+
         ddResolution.ClearOptions();
-        List<string> options = new List<string>();
+        double currentRefreshRate = Screen.currentResolution.refreshRateRatio.value;
 
-        int currentResolutionIndex = default;
-        int index = 0;
-        foreach (Resolution r in resolutions)
+        for(int i=0;i< fullResolutionList.Length;i++)
         {
-            //Resolution aspectRatio = SnakeUtils.GetAspectRatio(r);
-            //string aspectRationString = "(" + aspectRatio.width + ":" + aspectRatio.height + ")";
-            string resolutionString = r.width + "X" + r.height;
-            if(!options.Contains(resolutionString))
-                options.Add(resolutionString);
-            if (r.width == Screen.currentResolution.width && r.height == Screen.currentResolution.height)
-                currentResolutionIndex = index;
-            index++;
+            if (fullResolutionList[i].refreshRateRatio.value == currentRefreshRate)
+                resolutions.Add(fullResolutionList[i]);
         }
-        ddResolution.AddOptions(options);
 
+        List<string> options = new List<string>();
+        for (int i = 0; i < resolutions.Count; i++)
+        {
+            string resolutionString = resolutions[i].width + "x" + resolutions[i].height;
+            options.Add(resolutionString);
+            if(resolutions[i].width == Screen.width && resolutions[i].height == Screen.height)
+                currentResolutionIndex = i;
+        }
+
+        ddResolution.AddOptions(options);
         ddResolution.value = currentResolutionIndex;
         ddResolution.RefreshShownValue();
     }
 
     public void SetResolutuon(int index)
     {
-        string resolutionString = ddResolution.options[index].text;
-        string[] resolutionSplit = resolutionString.Split("X");
-        Resolution resolution = new Resolution();
-        resolution.width = int.Parse(resolutionSplit[0]);
-        resolution.height = int.Parse(resolutionSplit[1]);
+        Resolution resolution = resolutions[index];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode);
     }
 
-    public void SetScreenMode(int mode)
+    public void SetFullScreen(bool isFullScreen)
     {
-        Debug.Log(mode);
-        switch (mode)
-        {
-            case 0:
-                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
-                break;
-            case 1:
-                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
-                break;
-            case 2:
-                Screen.fullScreenMode = FullScreenMode.Windowed;
-                break;
-        }
+        Screen.fullScreenMode = isFullScreen ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
     }
 
-    public void SetVSync(bool value)
+    //TEST
+    public void Test_ClearHighScore()
     {
-        if (value == true)
-            QualitySettings.vSyncCount = 1;
-        else
-            QualitySettings.vSyncCount = 0;
+        PlayerPrefs.SetInt("HighScore", 0);
+    }
+
+    public void SetVSync(bool isVSyncActivated)
+    {
+        int vSyncMode = isVSyncActivated ? 1 : 0;
+        QualitySettings.vSyncCount = vSyncMode;
+        PlayerPrefs.SetInt("VSync", vSyncMode);
     }
 }
